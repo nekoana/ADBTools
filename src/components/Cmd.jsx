@@ -5,8 +5,12 @@ function Title({ title }) {
   return <p className="title">{title}</p>;
 }
 
-function Description({description}) {
-  return <p className="description">{description}</p>;
+function Description({ description }) {
+  return (
+    <p className="description" title={description}>
+      {description}
+    </p>
+  );
 }
 
 function Cmd() {
