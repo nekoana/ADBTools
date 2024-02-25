@@ -47,3 +47,12 @@ jobs:
           releaseBody: "See the assets to download this version and install."
           releaseDraft: true
           prerelease: false
+      
+      - name: cache artifacts
+        uses: actions/cache@v4
+        with:
+          path: |
+            target/release
+          key: ${matrix.platform}-tauri
+          restore-keys: |
+            ${matrix.platform}-tauri
