@@ -33,7 +33,7 @@
   },
   "plugins": {
     "updater": {
-      "endpoints": "https://nekoana.github.io/ADBTools/updater.json",
+      "endpoints": ["https://nekoana.github.io/ADBTools/updater.json"],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDgxOTZEQzk2QjE5MTQxQTYKUldTbVFaR3hsdHlXZ2VkUDJZa09jT1pxM2VxcWdYaXRHRDZUekRQN1grRjNwVmxZS2Jja1dIbHIK",
       "windows": {
         "installMode": "quiet"
