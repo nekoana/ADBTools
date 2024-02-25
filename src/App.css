@@ -1,7 +1,10 @@
-.logo.vite:hover {
-  filter: drop-shadow(0 0 2em #747bff);
-}
-
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafb);
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10vh;
+  display: flex;
+  flex: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
 }
