@@ -47,3 +47,18 @@ jobs:
           releaseBody: "See the assets to download this version and install."
           releaseDraft: true
           prerelease: false
+
+      - name: Cache build artifacts
+        uses: actions/cache@v4.0.0
+        with:
+          # A list of files, directories, and wildcard patterns to cache and restore
+          path: |
+            target/release/ADBTools.exe
+            target/release/ADBTools.dmg
+          # An explicit key for restoring and saving the cache
+          key:  ${{ runner.os }}-build
+          # An ordered list of keys to use for restoring stale cache if no cache hit occurred for key. Note `cache-hit` returns false in this case.
+          restore-keys:  |
+            ${{ runner.os }}-build    
+
+          
