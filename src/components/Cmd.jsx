@@ -15,7 +15,7 @@ function Description({ description }) {
 
 function Cmd() {
   return (
-    <div className="flat cmd">
+    <div className="neumorphism cmd">
       <Title title="Title" />
       <Description description="Description Description Description Description Description Description" />
     </div>

@@ -1,5 +1,4 @@
-.flat {
- 
+.neumorphism {
   transform: scale(1);
   border-style: none;
   outline: none;
@@ -9,13 +8,13 @@
   transition: all 0.3s;
 }
 
-.flat:hover {
+.neumorphism:hover {
   box-shadow: 27px 27px 55px #bebebe, -27px -27px 55px #ffffff;
   transition: all 0.3s;
   transform: scale(0.95);
 }
 
-.flat:active {
+.neumorphism:active {
   background: linear-gradient(145deg, #cacaca, #f0f0f0);
   box-shadow: 27px 27px 55px #bebebe, -27px -27px 55px #ffffff;
   transition: all 0.3s;

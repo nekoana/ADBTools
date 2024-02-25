@@ -1,5 +1,6 @@
 import "./App.css";
 import Cmd from "./components/Cmd";
+import FloatButton from "./components/FloatButton";
 
 function App() {
   return (
@@ -9,6 +10,8 @@ function App() {
         .map((_, i) => (
           <Cmd />
         ))}
+
+        <FloatButton />
     </div>
   );
 }
