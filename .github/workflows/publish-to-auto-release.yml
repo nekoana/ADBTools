@@ -52,25 +52,18 @@ jobs:
       - name: Set build artifact ext name
         id: extname
         run: |
-          if [[ "${{ runner.os }}" == "Windows" ]]; then
+          if [ "${{ runner.os }}" == "Windows" ]; then
             echo "::set-output name=ext::exe"
-          elif [[ "${{ runner.os }}" == "macOS" ]]; then
+          elif [ "${{ runner.os }}" == "macOS" ]; then
             echo "::set-output name=ext::dmg"
           else
             echo "::set-output name=ext::out"
           fi
 
-      - name: Cache build artifacts
-        uses: actions/cache@v4.0.0
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
-          # A list of files, directories, and wildcard patterns to cache and restore
-          path: |
-            src-tauri/target/release/ADBTools.${{ steps.extname.outputs.ext }}
-          # An explicit key for restoring and saving the cache
-          key: |
-            ${{ runner.os }}-build
-          # An ordered list of keys to use for restoring stale cache if no cache hit occurred for key. Note `cache-hit` returns false in this case.
-          restore-keys:  |
-            ${{ runner.os }}-build    
+          name: ADBTools.${{ steps.extname.outputs.ext }}
+          path: src-tauri/target/release/ADBTools.${{ steps.extname.outputs.ext }} 
 
           
