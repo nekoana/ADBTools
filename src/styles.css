@@ -14,3 +14,12 @@
   -webkit-text-size-adjust: 100%;
 }
 
+html,
+body {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
