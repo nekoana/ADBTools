@@ -23,7 +23,10 @@
 .description {
   font-size: 1rem;
   margin: 0;
-  white-space: nowrap;
+  line-height: 1em;
+  height: 2em;
+  word-break: break-all;
+  overflow-wrap: break-word;
   text-overflow: ellipsis;
   overflow: hidden;
 }
