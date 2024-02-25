@@ -46,24 +46,6 @@ jobs:
           releaseName: "App v__VERSION__"
           releaseBody: "See the assets to download this version and install."
           releaseDraft: true
-          prerelease: false
-
-
-      - name: Set build artifact ext name
-        id: extname
-        run: |
-          if [ "${{ runner.os }}" == "Windows" ]; then
-            echo "::set-output name=ext::exe"
-          elif [ "${{ runner.os }}" == "macOS" ]; then
-            echo "::set-output name=ext::dmg"
-          else
-            echo "::set-output name=ext::out"
-          fi
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ADBTools.${{ steps.extname.outputs.ext }}
-          path: src-tauri/target/release/ADBTools.${{ steps.extname.outputs.ext }} 
+          prerelease: true
 
           
