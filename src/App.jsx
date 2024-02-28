@@ -7,17 +7,19 @@ import ModalDialog from "./components/ModalDialog";
 function App() {
   const [open, setOpen] = useState(false);
 
+  const handleCmdClick = (e) => {
+    setOpen(true);
+  };
+
   return (
     <div className="container">
       {Array(10)
         .fill()
         .map((_, i) => (
-          <Cmd />
+          <Cmd onClick={handleCmdClick} />
         ))}
 
       <FloatButton />
-
-      <button onClick={() => setOpen(!open)}>Open</button>
 
       <ModalDialog open={open}>
         <h1>Hello World</h1>

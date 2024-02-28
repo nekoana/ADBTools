@@ -13,9 +13,9 @@ function Description({ description }) {
   );
 }
 
-function Cmd() {
+function Cmd({ onClick }) {
   return (
-    <div className="neumorphism cmd">
+    <div className="neumorphism cmd" onClick={onClick}>
       <Title title="Title" />
       <Description description="Description Description Description Description Description Description" />
     </div>
