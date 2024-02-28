@@ -1,8 +1,12 @@
+import { useState } from "react";
 import "./App.css";
 import Cmd from "./components/Cmd";
 import FloatButton from "./components/FloatButton";
+import ModalDialog from "./components/ModalDialog";
 
 function App() {
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="container">
       {Array(10)
@@ -11,7 +15,13 @@ function App() {
           <Cmd />
         ))}
 
-        <FloatButton />
+      <FloatButton />
+
+      <button onClick={() => setOpen(!open)}>Open</button>
+
+      <ModalDialog open={open}>
+        <h1>Hello World</h1>
+      </ModalDialog>
     </div>
   );
 }

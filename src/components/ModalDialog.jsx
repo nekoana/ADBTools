@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useRef } from "react";
+import "./ModalDialog.css";
 
 function ModalDialog({ open, ...props }) {
   const modalRef = useRef(null);
@@ -14,7 +15,7 @@ function ModalDialog({ open, ...props }) {
   }, [open]);
 
   return (
-    <dialog ref={modalRef}>
+    <dialog ref={modalRef} className="modal-dialog">
       <div {...props} />
     </dialog>
   );

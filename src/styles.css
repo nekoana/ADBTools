@@ -24,8 +24,3 @@ html::-webkit-scrollbar {
   display: none;
 }
 
-dialog {
-  width: 720px;
-  height: 480px;
-  border-radius: 10px;
-}
