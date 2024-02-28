@@ -1,4 +1,4 @@
-.neumorphism {
+.neumorphism,dialog {
   transform: scale(1);
   border-style: none;
   outline: none;
@@ -8,7 +8,7 @@
   transition: all 0.3s;
 }
 
-.neumorphism:hover {
+.neumorphism:hover,dialog:hover {
   box-shadow: 27px 27px 55px #bebebe, -27px -27px 55px #ffffff;
   transition: all 0.3s;
   transform: scale(0.95);
