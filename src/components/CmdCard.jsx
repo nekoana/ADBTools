@@ -1,5 +1,5 @@
 import "../neumorphism.css";
-import "./Cmd.css";
+import "./CmdCard.css";
 
 function Title({ title }) {
   return <p className="title">{title}</p>;
@@ -13,7 +13,7 @@ function Description({ description }) {
   );
 }
 
-function Cmd({ onClick }) {
+function CmdCard({ onClick }) {
   return (
     <div className="neumorphism cmd" onClick={onClick}>
       <Title title="Title" />
@@ -22,4 +22,4 @@ function Cmd({ onClick }) {
   );
 }
 
-export default Cmd;
+export default CmdCard;

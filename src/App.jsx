@@ -1,8 +1,9 @@
 import { useState } from "react";
 import "./App.css";
-import Cmd from "./components/Cmd";
+import CmdCard from "./components/CmdCard";
 import FloatButton from "./components/FloatButton";
 import ModalDialog from "./components/ModalDialog";
+import CmdForm from "./components/CmdForm";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -11,18 +12,26 @@ function App() {
     setOpen(true);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData);
+
+    console.log(data);
+  };
+
   return (
     <div className="container">
       {Array(10)
         .fill()
         .map((_, i) => (
-          <Cmd onClick={handleCmdClick} />
+          <CmdCard onClick={handleCmdClick} />
         ))}
 
-      <FloatButton />
+      <FloatButton onClick={handleCmdClick}>+</FloatButton>
 
       <ModalDialog open={open}>
-        <h1>Hello World</h1>
+        <CmdForm onSubmit={handleSubmit} />
       </ModalDialog>
     </div>
   );
