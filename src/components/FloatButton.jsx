@@ -1,6 +1,5 @@
 import "./FloatButton.css";
 import "../neumorphism.css";
-import { selectAll } from "../database/Database";
 
 function FloatButton({ onClick, children }) {
   return (

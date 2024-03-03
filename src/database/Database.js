@@ -10,6 +10,7 @@ class AdbToolsDatabase {
 
   async init() {
     if (this.db) return;
+
     this.load("sqlite:adbtools.db");
 
     this.execute(
@@ -20,7 +21,7 @@ class AdbToolsDatabase {
   async selectAll() {
     await this.init();
 
-    const result = await db.select("SELECT * FROM cmd");
+    const result = await this.db.select("SELECT * FROM cmd");
     return result.map((item) => {
       return new CmdModel(
         item.id,
@@ -35,7 +36,7 @@ class AdbToolsDatabase {
   async insert({ title, description, command, keywords }) {
     await this.init();
 
-    return await db.execute(
+    return await this.db.execute(
       "INSERT INTO cmd(title,description,command,keywords) VALUES (?,?,?,?)",
       [title, description, command, keywords]
     );
