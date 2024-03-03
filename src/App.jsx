@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useDeferredValue, useEffect, useState } from "react";
 import "./App.css";
 import FloatButton from "./components/FloatButton";
 import NewCmdDialog from "./components/NewCmdDialog";
+import EditCmdDialog from "./components/EditCmdDialog";
 import CmdCard from "./components/CmdCard";
 import { db } from "./database/Database";
 
@@ -9,6 +10,14 @@ function App() {
   const [open, setOpen] = useState(false);
 
   const [cmdModel, setCmdModel] = useState(Array());
+
+  const [editCmdModel, setEditCmdModel] = useState(null);
+
+  const [editOpen, setEditOpen] = useState(false);
+
+  useEffect(() => {
+    setEditOpen(editCmdModel !== null);
+  }, [editCmdModel]);
 
   const loadCmdModel = async () => {
     const result = await db.selectAll();
@@ -20,7 +29,7 @@ function App() {
   });
 
   const handleEditClick = (item) => {
-    console.log("Edit", item);
+    setEditCmdModel(item);
   };
 
   const handleAddClick = () => {
@@ -29,6 +38,10 @@ function App() {
 
   const handleCloseRequest = () => {
     setOpen(false);
+  };
+
+  const handleEditCloseRequest = (cmd) => {
+    setEditCmdModel(null);
   };
 
   const handleSubmit = async (cmd) => {
@@ -44,21 +57,24 @@ function App() {
       {cmdModel.map((item) => {
         return (
           <div key={item.id}>
-            <CmdCard
-              cmdModel={item}
-              onClick={handleEditClick}
-            />
+            <CmdCard cmdModel={item} onClick={handleEditClick} />
           </div>
         );
       })}
-
-      <FloatButton onClick={handleAddClick}>+</FloatButton>
 
       <NewCmdDialog
         open={open}
         onCloseRequest={handleCloseRequest}
         onSubmit={handleSubmit}
       />
+
+      <EditCmdDialog
+        open={editOpen}
+        cmdModel={editCmdModel}
+        onCloseRequest={handleEditCloseRequest}
+      />
+
+      <FloatButton onClick={handleAddClick}>+</FloatButton>
     </div>
   );
 }
