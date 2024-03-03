@@ -1,7 +1,7 @@
 import Database from "@tauri-apps/plugin-sql";
 import CmdModel from "../model/CmdModel";
 
-class Database {
+class AdbToolsDatabase {
   constructor() {
     this.load("sqlite:adbtools.db");
   }
@@ -25,7 +25,7 @@ class Database {
   }
 }
 
-const db = new Database();
+const db = new AdbToolsDatabase();
 
 async function selectAll() {
   const result = await db.select("SELECT * FROM cmd");

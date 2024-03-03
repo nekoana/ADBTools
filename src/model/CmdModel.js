@@ -1,5 +1,3 @@
-
-
 class CmdModel {
     constructor(id,title, description, command, keywords) {
         this.id = id;
