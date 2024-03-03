@@ -3,7 +3,7 @@ import "./App.css";
 import FloatButton from "./components/FloatButton";
 import NewCmdDialog from "./components/NewCmdDialog";
 import CmdCard from "./components/CmdCard";
-import { insert, selectAll } from "./database/Database";
+import { db } from "./database/Database";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -11,7 +11,7 @@ function App() {
   const [cmdModel, setCmdModel] = useState(Array());
 
   const loadCmdModel = async () => {
-    const result = await selectAll();
+    const result = await db.selectAll();
     setCmdModel(result);
   };
 
@@ -32,7 +32,7 @@ function App() {
   };
 
   const handleSubmit = async (cmd) => {
-    const result = await insert(cmd);
+    const result = await db.insert(cmd);
     console.log(result);
     setOpen(false);
 
