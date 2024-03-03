@@ -4,6 +4,12 @@ import FloatButton from "./components/FloatButton";
 import NewCmdDialog from "./components/NewCmdDialog";
 import CmdCard from "./components/CmdCard";
 import { insert, selectAll } from "./database/Database";
+import { appDataDir } from "@tauri-apps/api/path";
+
+const appDataDirPath = await appDataDir();
+
+console.log(appDataDirPath);
+
 
 function App() {
   const [open, setOpen] = useState(false);

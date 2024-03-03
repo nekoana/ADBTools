@@ -13,6 +13,11 @@ function CmdForm({ onSubmit }) {
       return acc;
     }, {});
 
+    //清除输入框
+    ids.forEach((id) => {
+      document.getElementById(id).value = "";
+    });
+
     onSubmit(data);
   };
 
