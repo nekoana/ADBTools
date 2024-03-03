@@ -10,14 +10,13 @@ function App() {
 
   const [cmdModel, setCmdModel] = useState(Array());
 
-  const loadCmd = async () => {
+  const loadCmdModel = async () => {
     const result = await selectAll();
-    console.log(result);
     setCmdModel(result);
   };
 
   useState(() => {
-    loadCmd();
+    loadCmdModel();
   });
 
   const handleEditClick = (item) => {
@@ -32,8 +31,12 @@ function App() {
     setOpen(false);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (cmd) => {
+    const result = await insert(cmd);
+    console.log(result);
     setOpen(false);
+
+    loadCmdModel();
   };
 
   return (

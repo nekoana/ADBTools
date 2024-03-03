@@ -3,7 +3,9 @@ import "./CmdForm.css";
 function CmdForm({ onSubmit }) {
   const ids = ["title", "description", "command", "keywords"];
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
     const data = ids.map((id) => {
       return document.getElementById(id).value;
     }).reduce((acc, value, index) => {
