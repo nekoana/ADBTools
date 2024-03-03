@@ -11,9 +11,9 @@ class AdbToolsDatabase {
   async init() {
     if (this.db) return;
 
-    this.load("sqlite:adbtools.db");
+    await this.load("sqlite:adbtools.db");
 
-    this.execute(
+    await this.db.execute(
       "CREATE TABLE IF NOT EXISTS cmd (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT, description TEXT,command TEXT, keywords TEXT)"
     );
   }
