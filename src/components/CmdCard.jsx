@@ -13,11 +13,11 @@ function Description({ description }) {
   );
 }
 
-function CmdCard({ onClick }) {
+function CmdCard({ onClick, cmdModel }) {
   return (
-    <div className="neumorphism cmd" onClick={onClick}>
-      <Title title="Title" />
-      <Description description="Description Description Description Description Description Description" />
+    <div className="neumorphism cmd" onClick={() => onClick(cmdModel)}>
+      <Title title={cmdModel.title} />
+      <Description description={cmdModel.description} />
     </div>
   );
 }

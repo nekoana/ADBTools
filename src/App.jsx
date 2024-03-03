@@ -1,38 +1,61 @@
 import { useState } from "react";
 import "./App.css";
-import CmdCard from "./components/CmdCard";
 import FloatButton from "./components/FloatButton";
-import ModalDialog from "./components/ModalDialog";
-import CmdForm from "./components/CmdForm";
+import NewCmdDialog from "./components/NewCmdDialog";
+import CmdCard from "./components/CmdCard";
+import { insert, selectAll } from "./database/Database";
 
 function App() {
   const [open, setOpen] = useState(false);
 
-  const handleCmdClick = (e) => {
+  const [cmdModel, setCmdModel] = useState(Array());
+
+  const loadCmd = async () => {
+    const result = await selectAll();
+    console.log(result);
+    setCmdModel(result);
+  };
+
+  useState(() => {
+    loadCmd();
+  });
+
+  const handleEditClick = (item) => {
+    console.log("Edit", item);
+  };
+
+  const handleAddClick = () => {
     setOpen(true);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
+  const handleCloseRequest = () => {
+    setOpen(false);
+  };
 
-    console.log(data);
+  const handleSubmit = async (e) => {
+    setOpen(false);
   };
 
   return (
     <div className="container">
-      {Array(10)
-        .fill()
-        .map((_, i) => (
-          <CmdCard onClick={handleCmdClick} />
-        ))}
+      {cmdModel.map((item) => {
+        return (
+          <div key={item.id}>
+            <CmdCard
+              cmdModel={item}
+              onClick={handleEditClick}
+            />
+          </div>
+        );
+      })}
 
-      <FloatButton onClick={handleCmdClick}>+</FloatButton>
+      <FloatButton onClick={handleAddClick}>+</FloatButton>
 
-      <ModalDialog open={open}>
-        <CmdForm onSubmit={handleSubmit} />
-      </ModalDialog>
+      <NewCmdDialog
+        open={open}
+        onCloseRequest={handleCloseRequest}
+        onSubmit={handleSubmit}
+      />
     </div>
   );
 }

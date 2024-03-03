@@ -1,8 +1,21 @@
 import "./CmdForm.css";
 
 function CmdForm({ onSubmit }) {
+  const ids = ["title", "description", "command", "keywords"];
+
+  const handleSubmit = () => {
+    const data = ids.map((id) => {
+      return document.getElementById(id).value;
+    }).reduce((acc, value, index) => {
+      acc[ids[index]] = value;
+      return acc;
+    }, {});
+
+    onSubmit(data);
+  };
+
   return (
-    <form onSubmit={onSubmit} className="cmd-form">
+    <form onSubmit={handleSubmit} className="cmd-form">
       <div className="cmd-row">
         <p className="cmd-tips">Title:</p>
         <input type="text" id="title" className="cmd-input" />
@@ -10,6 +23,10 @@ function CmdForm({ onSubmit }) {
       <div className="cmd-row">
         <p className="cmd-tips">Description:</p>
         <input id="description" className="cmd-input" />
+      </div>
+      <div className="cmd-row">
+        <p className="cmd-tips">Command:</p>
+        <input id="command" className="cmd-input" />
       </div>
       <div className="cmd-row">
         <p className="cmd-tips">Keywords:</p>

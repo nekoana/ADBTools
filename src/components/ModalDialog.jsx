@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import "./ModalDialog.css";
 
-function ModalDialog({ open, ...props }) {
+function ModalDialog({ open, onCloseRequest, ...props }) {
   const modalRef = useRef(null);
 
   const forbiddenEsc = (e) => {
@@ -16,6 +16,21 @@ function ModalDialog({ open, ...props }) {
     modal.addEventListener("keydown", forbiddenEsc);
     return () => {
       modal.removeEventListener("keydown", forbiddenEsc);
+    };
+  });
+
+  const outsideClick = (e) => {
+    if (e.target === modalRef.current && onCloseRequest) {
+      onCloseRequest();
+    }
+  };
+
+  useEffect(() => {
+    const modal = modalRef.current;
+    modal.addEventListener("mousedown", outsideClick);
+
+    return () => {
+      modal.removeEventListener("mousedown", outsideClick);
     };
   });
 

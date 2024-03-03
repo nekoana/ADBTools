@@ -3,14 +3,8 @@ import "../neumorphism.css";
 import { selectAll } from "../database/Database";
 
 function FloatButton({ onClick, children }) {
-
-  const selectAllCmd = async () => {
-    const result = await selectAll();
-    console.log(result);
-  }
-
   return (
-    <button className="float-button neumorphism" onClick={selectAllCmd}>
+    <button className="float-button neumorphism" onClick={onClick}>
       {children}
     </button>
   );

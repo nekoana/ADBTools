@@ -1,17 +1,34 @@
 import Database from "@tauri-apps/plugin-sql";
+import CmdModel from "../model/CmdModel";
 
-const DB = await Database.load("sqlite:adbtools.db");
+const db = await Database.load("sqlite:adbtools.db");
 
-DB.execute(
-  "CREATE TABLE IF NOT EXISTS cmd (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT, description TEXT,keywords TEXT)"
+db.execute(
+  "CREATE TABLE IF NOT EXISTS cmd (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT, description TEXT,command TEXT, keywords TEXT)"
 );
 
-DB.execute(
+db.execute(
   "INSERT INTO cmd(title,description,keywords) VALUES ('aaa','aaa','aaa')"
 );
 
 async function selectAll() {
-  return await DB.execute("SELECT * FROM cmd");
+  const result = await db.select("SELECT * FROM cmd");
+  return result.map((item) => {
+    return new CmdModel(
+      item.id,
+      item.title,
+      item.description,
+      item.command,
+      item.keywords
+    );
+  });
 }
 
-export { DB, selectAll };
+async function insert({ title, description, command, keywords }) {
+  return await db.insert(
+    "INSERT INTO cmd(title,description,command,keywords) VALUES (?,?,?,?)",
+    [title, description, command, keywords]
+  );
+}
+
+export { selectAll, insert };
