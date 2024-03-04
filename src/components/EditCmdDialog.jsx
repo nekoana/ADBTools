@@ -12,6 +12,19 @@ function EditCmdDialog({ open, onCloseRequest, cmdModel }) {
   const [command, setCommand] = useState(cmdModel.command);
   const [keywords, setKeywords] = useState(cmdModel.keywords);
 
+  const [changed, setChanged] = useState(false);
+
+  useEffect(() => {
+    const titleChanged = title !== cmdModel.title;
+    const descriptionChanged = description !== cmdModel.description;
+    const commandChanged = command !== cmdModel.command;
+    const keywordsChanged = keywords !== cmdModel.keywords;
+
+    setChanged(
+      titleChanged || descriptionChanged || commandChanged || keywordsChanged
+    );
+  }, [cmdModel, title, description, command, keywords]);
+
   const changeMap = {
     title: setTitle,
     description: setDescription,
@@ -34,7 +47,6 @@ function EditCmdDialog({ open, onCloseRequest, cmdModel }) {
       command,
       keywords,
     };
-    onSubmit(cmd);
   };
 
   return (
@@ -77,6 +89,16 @@ function EditCmdDialog({ open, onCloseRequest, cmdModel }) {
             value={keywords}
             onChange={handleChange}
           />
+        </div>
+
+        <div className="cmd-row">
+          <button type="submit" className="cmd-row-submit" hidden={!changed}>
+            ✔
+          </button>
+
+          <button type="submit" className="cmd-row-submit">
+            ▶
+          </button>
         </div>
       </form>
     </ModalDialog>

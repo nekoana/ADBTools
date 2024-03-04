@@ -7,9 +7,9 @@ import CmdCard from "./components/CmdCard";
 import { db } from "./database/Database";
 
 function App() {
-  const [open, setOpen] = useState(false);
+  const [newOpen, setNewOpen] = useState(false);
 
-  const [cmdModel, setCmdModel] = useState(Array());
+  const [cmdModels, setCmdModels] = useState(Array());
 
   const [editCmdModel, setEditCmdModel] = useState(null);
 
@@ -21,7 +21,7 @@ function App() {
 
   const loadCmdModel = async () => {
     const result = await db.selectAll();
-    setCmdModel(result);
+    setCmdModels(result);
   };
 
   useState(() => {
@@ -33,28 +33,28 @@ function App() {
   };
 
   const handleAddClick = () => {
-    setOpen(true);
+    setNewOpen(true);
   };
 
   const handleCloseRequest = () => {
-    setOpen(false);
+    setNewOpen(false);
   };
 
-  const handleEditCloseRequest = (cmd) => {
+  const handleEditCloseRequest = () => {
     setEditCmdModel(null);
   };
 
   const handleSubmit = async (cmd) => {
     const result = await db.insert(cmd);
     console.log(result);
-    setOpen(false);
+    setNewOpen(false);
 
     loadCmdModel();
   };
 
   return (
     <div className="container">
-      {cmdModel.map((item) => {
+      {cmdModels.map((item) => {
         return (
           <div key={item.id}>
             <CmdCard cmdModel={item} onClick={handleEditClick} />
@@ -63,7 +63,7 @@ function App() {
       })}
 
       <NewCmdDialog
-        open={open}
+        open={newOpen}
         onCloseRequest={handleCloseRequest}
         onSubmit={handleSubmit}
       />
