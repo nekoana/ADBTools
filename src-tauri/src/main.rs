@@ -7,6 +7,17 @@ fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
 
+
+#[derive(Default)]
+struct MyState {
+  s: std::sync::Mutex<String>,
+  t: std::sync::Mutex<std::collections::HashMap<String, String>>,
+}
+#[tauri::command]
+async fn adb_devices() -> Result<(), String> {
+  Ok(())
+}
+
 fn main() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())

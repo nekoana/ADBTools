@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import ModalDialog from "./ModalDialog";
+import "./EditCmdDialog.css";
+import CmdModel from "../model/CmdModel";
 
-function EditCmdDialog({ open, onCloseRequest, cmdModel }) {
+function EditCmdDialog({ open, onSaveRequest, onCloseRequest, cmdModel }) {
   if (!cmdModel) {
     return null;
   }
@@ -40,13 +42,16 @@ function EditCmdDialog({ open, onCloseRequest, cmdModel }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const cmd = {
-      id: cmdModel.id,
+    const newCmdModel = cmdModel.update(
       title,
       description,
       command,
       keywords,
-    };
+    );
+
+    console.log("newCmdModel", newCmdModel);
+
+    onSaveRequest(newCmdModel);
   };
 
   return (
@@ -90,13 +95,16 @@ function EditCmdDialog({ open, onCloseRequest, cmdModel }) {
             onChange={handleChange}
           />
         </div>
-
         <div className="cmd-row">
-          <button type="submit" className="cmd-row-submit" hidden={!changed}>
-            ✔
+          <button
+            type="submit"
+            className="button-save-change"
+            disabled={!changed}
+          >
+            ✓
           </button>
 
-          <button type="submit" className="cmd-row-submit">
+          <button type="button" className="cmd-row-submit">
             ▶
           </button>
         </div>

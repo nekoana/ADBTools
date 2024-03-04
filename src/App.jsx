@@ -44,10 +44,18 @@ function App() {
     setEditCmdModel(null);
   };
 
-  const handleSubmit = async (cmd) => {
+  const handleNewSubmit = async (cmd) => {
     const result = await db.insert(cmd);
-    console.log(result);
+
     setNewOpen(false);
+
+    loadCmdModel();
+  };
+
+  const handleSaveRequest = async (cmd) => {
+    await db.update(cmd);
+
+    setEditCmdModel(null);
 
     loadCmdModel();
   };
@@ -65,12 +73,13 @@ function App() {
       <NewCmdDialog
         open={newOpen}
         onCloseRequest={handleCloseRequest}
-        onSubmit={handleSubmit}
+        onSubmit={handleNewSubmit}
       />
 
       <EditCmdDialog
         open={editOpen}
         cmdModel={editCmdModel}
+        onSaveRequest={handleSaveRequest}
         onCloseRequest={handleEditCloseRequest}
       />
 

@@ -33,6 +33,15 @@ class AdbToolsDatabase {
     });
   }
 
+  async update(cmd) {
+    await this.init();
+
+    return await this.db.execute(
+      "UPDATE cmd SET title = ?, description = ?, command = ?, keywords = ? WHERE id = ?",
+      [cmd.title, cmd.description, cmd.command, cmd.keywords, cmd.id]
+    );
+  }
+
   async insert({ title, description, command, keywords }) {
     await this.init();
 
