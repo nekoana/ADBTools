@@ -60,6 +60,14 @@ function App() {
     loadCmdModel();
   };
 
+  const handleDeleteRequest = async (cmd) => {
+    await db.delete(cmd);
+
+    setEditCmdModel(null);
+
+    loadCmdModel();
+  }
+
   return (
     <div className="container">
       {cmdModels.map((item) => {
@@ -80,6 +88,7 @@ function App() {
         open={editOpen}
         cmdModel={editCmdModel}
         onSaveRequest={handleSaveRequest}
+        onDeleteRequest={handleDeleteRequest}
         onCloseRequest={handleEditCloseRequest}
       />
 

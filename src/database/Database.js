@@ -50,6 +50,12 @@ class AdbToolsDatabase {
       [title, description, command, keywords]
     );
   }
+
+  async delete(cmd) {
+    await this.init();
+
+    return await this.db.execute("DELETE FROM cmd WHERE id = ?", [cmd.id]);
+  }
 }
 
 const db = new AdbToolsDatabase();

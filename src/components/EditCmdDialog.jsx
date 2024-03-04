@@ -2,9 +2,14 @@ import { useEffect } from "react";
 import { useState } from "react";
 import ModalDialog from "./ModalDialog";
 import "./EditCmdDialog.css";
-import CmdModel from "../model/CmdModel";
 
-function EditCmdDialog({ open, onSaveRequest, onCloseRequest, cmdModel }) {
+function EditCmdDialog({
+  open,
+  cmdModel,
+  onSaveRequest,
+  onDeleteRequest,
+  onCloseRequest,
+}) {
   if (!cmdModel) {
     return null;
   }
@@ -42,16 +47,18 @@ function EditCmdDialog({ open, onSaveRequest, onCloseRequest, cmdModel }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newCmdModel = cmdModel.update(
-      title,
-      description,
-      command,
-      keywords,
-    );
 
-    console.log("newCmdModel", newCmdModel);
-
-    onSaveRequest(newCmdModel);
+    if (e.nativeEvent.submitter.id === "delete") {
+      onDeleteRequest(cmdModel);
+    } else if (e.nativeEvent.submitter.id === "save") {
+      const newCmdModel = cmdModel.update(
+        title,
+        description,
+        command,
+        keywords
+      );
+      onSaveRequest(newCmdModel);
+    }
   };
 
   return (
@@ -97,11 +104,16 @@ function EditCmdDialog({ open, onSaveRequest, onCloseRequest, cmdModel }) {
         </div>
         <div className="cmd-row">
           <button
+            id="save"
             type="submit"
             className="button-save-change"
             disabled={!changed}
           >
             ✓
+          </button>
+
+          <button type="submit" id="delete" className="button-save-change">
+            ✗
           </button>
 
           <button type="button" className="cmd-row-submit">
