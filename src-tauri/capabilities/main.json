@@ -1,10 +1,8 @@
 {
-  "$schema": "./schemas/desktop-schema.json",
+  "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
   "description": "Capability for the main window",
-  "windows": [
-    "main"
-  ],
+  "windows": ["main"],
   "permissions": [
     "path:default",
     "event:default",
@@ -13,10 +11,72 @@
     "resources:default",
     "menu:default",
     "tray:default",
-    "shell:allow-open",
     "sql:allow-load",
     "sql:allow-execute",
     "sql:allow-select",
-    "sql:allow-close"
+    "sql:allow-close",
+    {
+      "identifier": "shell:allow-open",
+      "allow": [
+        {
+          "name": "adb",
+          "cmd": "adb",
+          "sidecar": false,
+          "args": [
+            {
+              "validator": "\\S+"
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "adb",
+          "cmd": "adb",
+          "sidecar": false,
+          "args": [
+            {
+              "validator": "\\S+"
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "identifier": "shell:allow-kill",
+      "allow": [
+        {
+          "name": "adb",
+          "cmd": "adb",
+          "sidecar": false,
+          "args": [
+            {
+              "validator": "\\S+"
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "identifier": "shell:allow-stdin-write",
+      "allow": [
+        {
+          "name": "adb",
+          "cmd": "adb",
+          "sidecar": false,
+          "args": [
+            {
+              "validator": "\\S+"
+            }
+          ]
+        }
+      ]
+    }
   ]
 }

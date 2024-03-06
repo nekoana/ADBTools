@@ -1,4 +1,5 @@
 {
+  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "productName": "ADBTools",
   "version": "0.0.0",
   "identifier": "com.kouqurong.adbtools",
@@ -12,7 +13,7 @@
     "windows": [
       {
         "title": "adbtools",
-        "width":1080,
+        "width": 1080,
         "height": 600,
         "minWidth": 1080,
         "minHeight": 600

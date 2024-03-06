@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import ModalDialog from "./ModalDialog";
 import "./EditCmdDialog.css";
+import DeviceList from "./DeviceList";
 
 function EditCmdDialog({
   open,
@@ -61,6 +62,8 @@ function EditCmdDialog({
     }
   };
 
+  const [testDevice, setTestDevice] = useState(["Device 1", "Device 2"]);
+
   return (
     <ModalDialog open={open} onCloseRequest={onCloseRequest}>
       <form onSubmit={handleSubmit} className="cmd-form">
@@ -119,6 +122,11 @@ function EditCmdDialog({
           <button type="button" className="cmd-row-submit">
             ▶
           </button>
+
+          <DeviceList
+            devices={testDevice}
+            onDeviceSelect={(e) => console.log(e)}
+          />
         </div>
       </form>
     </ModalDialog>
