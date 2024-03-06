@@ -5,7 +5,6 @@ import NewCmdDialog from "./components/NewCmdDialog";
 import EditCmdDialog from "./components/EditCmdDialog";
 import CmdCard from "./components/CmdCard";
 import { db } from "./database/Database";
-import { adbShell } from "./shell/ADBShell";
 
 function App() {
   const [newOpen, setNewOpen] = useState(false);
@@ -68,13 +67,6 @@ function App() {
 
     loadCmdModel();
   };
-
-  const loadDevices = async () => {
-    const devices = await adbShell.devices();
-    console.log(devices);
-  };
-
-  loadDevices();
 
   return (
     <div className="container">

@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import ModalDialog from "./ModalDialog";
 import "./EditCmdDialog.css";
 import DeviceList from "./DeviceList";
+import { adbShell } from "../shell/ADBShell";
 
 function EditCmdDialog({
   open,
@@ -15,12 +16,25 @@ function EditCmdDialog({
     return null;
   }
 
-  const [title, setTitle] = useState(cmdModel.title);
-  const [description, setDescription] = useState(cmdModel.description);
-  const [command, setCommand] = useState(cmdModel.command);
-  const [keywords, setKeywords] = useState(cmdModel.keywords);
+  const [state, setState] = useState({
+    title: cmdModel.title,
+    description: cmdModel.description,
+    command: cmdModel.command,
+    keywords: cmdModel.keywords,
+    changed: false,
+  });
 
-  const [changed, setChanged] = useState(false);
+  const [devices, setDevices] = useState([]);
+
+  const [selectedDevice, setSelectedDevice] = useState("");
+
+  useEffect(() => {
+    if (devices.length > 0) {
+      setSelectedDevice(devices[0]);
+    }
+  }, [devices]);
+
+  const { title, description, command, keywords, changed } = state;
 
   useEffect(() => {
     const titleChanged = title !== cmdModel.title;
@@ -28,22 +42,24 @@ function EditCmdDialog({
     const commandChanged = command !== cmdModel.command;
     const keywordsChanged = keywords !== cmdModel.keywords;
 
-    setChanged(
-      titleChanged || descriptionChanged || commandChanged || keywordsChanged
-    );
+    setState((prevState) => ({
+      ...prevState,
+      changed:
+        titleChanged || descriptionChanged || commandChanged || keywordsChanged,
+    }));
   }, [cmdModel, title, description, command, keywords]);
-
-  const changeMap = {
-    title: setTitle,
-    description: setDescription,
-    command: setCommand,
-    keywords: setKeywords,
-  };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
 
-    changeMap[id](value);
+    setState((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
+  };
+
+  const handleDeviceSelect = (device) => {
+    setSelectedDevice(device);
   };
 
   const handleSubmit = (e) => {
@@ -62,7 +78,43 @@ function EditCmdDialog({
     }
   };
 
-  const [testDevice, setTestDevice] = useState(["Device 1", "Device 2"]);
+  const fetchDevices = async () => {
+    const devices = await adbShell.devices();
+
+    setDevices(devices);
+  };
+
+  useEffect(() => {
+    fetchDevices();
+  }, [cmdModel]);
+
+  const pid = useRef(null);
+
+  const handleError = (data) => {
+    console.error(data);
+  };
+
+  const handleData = (data) => {
+    console.log(data);
+  };
+
+  const handleClose = () => {
+    console.log("Command closed");
+
+    pid.current = null;
+  };
+
+  const handleExecute = () => {
+    const pid = adbShell.execute(
+      selectedDevice,
+      cmdModel,
+      handleData,
+      handleError,
+      handleClose
+    );
+
+    pid.current = pid;
+  };
 
   return (
     <ModalDialog open={open} onCloseRequest={onCloseRequest}>
@@ -119,13 +171,18 @@ function EditCmdDialog({
             ✗
           </button>
 
-          <button type="button" className="cmd-row-submit">
+          <button
+            type="button"
+            className="cmd-row-submit"
+            onClick={handleExecute}
+          >
             ▶
           </button>
 
           <DeviceList
-            devices={testDevice}
-            onDeviceSelect={(e) => console.log(e)}
+            devices={devices}
+            selectedDevice={selectedDevice}
+            onDeviceSelect={handleDeviceSelect}
           />
         </div>
       </form>

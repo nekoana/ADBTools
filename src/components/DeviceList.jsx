@@ -1,18 +1,8 @@
 import { useEffect, useState } from "react";
 import "./DeviceList.css";
 
-function DeviceList({ devices, onDeviceSelect }) {
-  const [selectedDevice, setSelectedDevice] = useState("");
-
-  useEffect(() => {
-    if (devices.length > 0) {
-      setSelectedDevice(devices[0]);
-      onDeviceSelect(devices[0]);
-    }
-  }, [devices, onDeviceSelect]);
-
+function DeviceList({ devices, selectedDevice, onDeviceSelect }) {
   const handleDeviceSelect = (e) => {
-    setSelectedDevice(e.target.value);
     onDeviceSelect(e.target.value);
   };
 
