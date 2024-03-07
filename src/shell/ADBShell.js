@@ -22,8 +22,12 @@ class ADBShell {
   }
 
   async execute(device, cmdModel, onData, onError, onClose) {
-    const args = ["-s", device, cmdModel.command];
-    
+    const args = ["-s", device];
+
+    args.push(...cmdModel.command.split(" "));
+
+    console.log("adb shell args:", args);
+
     const command = await Command.create("adb", args);
 
     command.on("close", onClose);
@@ -37,33 +41,9 @@ class ADBShell {
     return pid;
   }
 
-  /**
-   * @param {pid} pid  The process id to kill
-   */
   async kill(pid) {
-    if (!pid) {
-      return;
-    }
-
-    const platform = await platform();
-
-    let killer;
-    let args;
-
-    switch (platform) {
-      case "windows":
-        killer = "taskkill";
-        args = ["/pid", pid, "/f"];
-        break;
-      case "macos":
-        killer = "kill";
-        args = [pid];
-        break;
-    }
-
-    if (args && killer) {
-      const command = await Command.create(killer, args);
-      await command.execute();
+    if (pid) {
+      await pid.kill();
     }
   }
 }

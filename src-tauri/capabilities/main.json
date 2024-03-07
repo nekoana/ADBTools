@@ -22,11 +22,7 @@
           "name": "adb",
           "cmd": "adb",
           "sidecar": false,
-          "args": [
-            {
-              "validator": "\\S+"
-            }
-          ]
+          "args": true
         }
       ]
     },
@@ -38,11 +34,7 @@
           "name": "adb",
           "cmd": "adb",
           "sidecar": false,
-          "args": [
-            {
-              "validator": "\\S+"
-            }
-          ]
+          "args": true
         }
       ]
     },
@@ -54,11 +46,7 @@
           "name": "adb",
           "cmd": "adb",
           "sidecar": false,
-          "args": [
-            {
-              "validator": "\\S+"
-            }
-          ]
+          "args": true
         }
       ]
     },
@@ -70,11 +58,7 @@
           "name": "adb",
           "cmd": "adb",
           "sidecar": false,
-          "args": [
-            {
-              "validator": "\\S+"
-            }
-          ]
+          "args": true
         }
       ]
     }

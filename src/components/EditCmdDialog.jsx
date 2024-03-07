@@ -11,6 +11,7 @@ function EditCmdDialog({
   onSaveRequest,
   onDeleteRequest,
   onCloseRequest,
+  onExecuteRequest,
 }) {
   if (!cmdModel) {
     return null;
@@ -88,32 +89,8 @@ function EditCmdDialog({
     fetchDevices();
   }, [cmdModel]);
 
-  const pid = useRef(null);
-
-  const handleError = (data) => {
-    console.error(data);
-  };
-
-  const handleData = (data) => {
-    console.log(data);
-  };
-
-  const handleClose = () => {
-    console.log("Command closed");
-
-    pid.current = null;
-  };
-
   const handleExecute = () => {
-    const pid = adbShell.execute(
-      selectedDevice,
-      cmdModel,
-      handleData,
-      handleError,
-      handleClose
-    );
-
-    pid.current = pid;
+    onExecuteRequest(selectedDevice, cmdModel);
   };
 
   return (
