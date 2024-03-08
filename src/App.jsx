@@ -107,14 +107,16 @@ function App() {
         onSubmit={handleNewSubmit}
       />
 
-      <EditCmdDialog
-        open={editOpen}
-        cmdModel={editCmdModel}
-        onSaveRequest={handleSaveRequest}
-        onDeleteRequest={handleDeleteRequest}
-        onCloseRequest={handleEditCloseRequest}
-        onExecuteRequest={handleExecuteRequest}
-      />
+      {editCmdModel && (
+        <EditCmdDialog
+          open={editOpen}
+          cmdModel={editCmdModel}
+          onSaveRequest={handleSaveRequest}
+          onDeleteRequest={handleDeleteRequest}
+          onCloseRequest={handleEditCloseRequest}
+          onExecuteRequest={handleExecuteRequest}
+        />
+      )}
 
       <FloatButton onClick={handleAddClick}>+</FloatButton>
     </div>

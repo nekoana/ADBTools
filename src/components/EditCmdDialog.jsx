@@ -17,17 +17,18 @@ function EditCmdDialog({
     return null;
   }
 
-  const [state, setState] = useState({
-    title: cmdModel.title,
-    description: cmdModel.description,
-    command: cmdModel.command,
-    keywords: cmdModel.keywords,
-    changed: false,
-  });
+  const [changed, setChanged] = useState(false);
 
   const [devices, setDevices] = useState([]);
 
   const [selectedDevice, setSelectedDevice] = useState("");
+
+  const [cmdState, setCmdState] = useState({
+    title: cmdModel.title,
+    description: cmdModel.description,
+    command: cmdModel.command,
+    keywords: cmdModel.keywords,
+  });
 
   useEffect(() => {
     if (devices.length > 0) {
@@ -35,25 +36,21 @@ function EditCmdDialog({
     }
   }, [devices]);
 
-  const { title, description, command, keywords, changed } = state;
-
   useEffect(() => {
-    const titleChanged = title !== cmdModel.title;
-    const descriptionChanged = description !== cmdModel.description;
-    const commandChanged = command !== cmdModel.command;
-    const keywordsChanged = keywords !== cmdModel.keywords;
+    const titleChanged = cmdState.title !== cmdModel.title;
+    const descriptionChanged = cmdState.description !== cmdModel.description;
+    const commandChanged = cmdState.command !== cmdModel.command;
+    const keywordsChanged = cmdState.keywords !== cmdModel.keywords;
 
-    setState((prevState) => ({
-      ...prevState,
-      changed:
-        titleChanged || descriptionChanged || commandChanged || keywordsChanged,
-    }));
-  }, [cmdModel, title, description, command, keywords]);
+    setChanged(
+      titleChanged || descriptionChanged || commandChanged || keywordsChanged
+    );
+  }, [cmdModel, cmdState]);
 
-  const handleChange = (e) => {
+  const handleCmdChange = (e) => {
     const { id, value } = e.target;
 
-    setState((prevState) => ({
+    setCmdState((prevState) => ({
       ...prevState,
       [id]: value,
     }));
@@ -102,8 +99,8 @@ function EditCmdDialog({
             type="text"
             id="title"
             className="cmd-input"
-            value={title}
-            onChange={handleChange}
+            value={cmdState.title}
+            onChange={handleCmdChange}
           />
         </div>
         <div className="cmd-row">
@@ -111,8 +108,8 @@ function EditCmdDialog({
           <input
             id="description"
             className="cmd-input"
-            value={description}
-            onChange={handleChange}
+            value={cmdState.description}
+            onChange={handleCmdChange}
           />
         </div>
         <div className="cmd-row">
@@ -120,8 +117,8 @@ function EditCmdDialog({
           <input
             id="command"
             className="cmd-input"
-            value={command}
-            onChange={handleChange}
+            value={cmdState.command}
+            onChange={handleCmdChange}
           />
         </div>
         <div className="cmd-row">
@@ -130,8 +127,8 @@ function EditCmdDialog({
             type="text"
             id="keywords"
             className="cmd-input"
-            value={keywords}
-            onChange={handleChange}
+            value={cmdState.keywords}
+            onChange={handleCmdChange}
           />
         </div>
         <div className="cmd-row">
