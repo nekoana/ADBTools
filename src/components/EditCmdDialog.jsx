@@ -4,9 +4,11 @@ import ModalDialog from "./ModalDialog";
 import "./EditCmdDialog.css";
 import DeviceList from "./DeviceList";
 import { adbShell } from "../shell/ADBShell";
+import ConsoleArea from "./ConsoleArea";
 
 function EditCmdDialog({
   open,
+  output,
   cmdModel,
   onSaveRequest,
   onDeleteRequest,
@@ -160,6 +162,7 @@ function EditCmdDialog({
           />
         </div>
       </form>
+      <ConsoleArea text={output} />
     </ModalDialog>
   );
 }

@@ -16,6 +16,8 @@ function App() {
 
   const [editOpen, setEditOpen] = useState(false);
 
+  const [output, setOutput] = useState("");
+
   useEffect(() => {
     setEditOpen(editCmdModel !== null);
   }, [editCmdModel]);
@@ -74,19 +76,21 @@ function App() {
       device,
       cmdModel,
       (data) => {
-        console.log(data);
+        setOutput((prev) => prev + "\n" + data);
       },
       (data) => {
-        console.log(data);
+        setOutput((prev) => prev + "\n" + data);
       },
       () => {
-        console.log("close");
+        setOutput((prev) => prev + "\n" + "Process exited");
       }
     );
   };
 
   const handleEditCloseRequest = async () => {
     setEditCmdModel(null);
+
+    setOutput("");
 
     await adbShell.kill(pid.current);
   };
@@ -110,6 +114,7 @@ function App() {
       {editCmdModel && (
         <EditCmdDialog
           open={editOpen}
+          output={output}
           cmdModel={editCmdModel}
           onSaveRequest={handleSaveRequest}
           onDeleteRequest={handleDeleteRequest}
