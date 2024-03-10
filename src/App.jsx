@@ -6,8 +6,22 @@ import EditCmdDialog from "./components/EditCmdDialog";
 import CmdCard from "./components/CmdCard";
 import { db } from "./database/Database";
 import { adbShell } from "./shell/ADBShell";
+import { check } from "@tauri-apps/plugin-updater";
+import { relaunch } from "@tauri-apps/plugin-process";
 
 function App() {
+  const checkUpdate = async () => {
+    const update = await check();
+    if (update?.available) {
+      await update.downloadAndInstall();
+      await relaunch();
+    }
+  };
+
+  useEffect(() => {
+    checkUpdate();
+  }, []);
+
   const [newOpen, setNewOpen] = useState(false);
 
   const [cmdModels, setCmdModels] = useState(Array());
