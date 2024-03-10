@@ -8,6 +8,7 @@ import { db } from "./database/Database";
 import { adbShell } from "./shell/ADBShell";
 import { check } from "@tauri-apps/plugin-updater";
 import { relaunch } from "@tauri-apps/plugin-process";
+import SearchFloatButton from "./components/SearchFloatButton";
 
 function App() {
   const checkUpdate = async () => {
@@ -35,15 +36,6 @@ function App() {
   useEffect(() => {
     setEditOpen(editCmdModel !== null);
   }, [editCmdModel]);
-
-  const loadCmdModel = async () => {
-    const result = await db.selectAll();
-    setCmdModels(result);
-  };
-
-  useState(() => {
-    loadCmdModel();
-  });
 
   const handleEditClick = (item) => {
     setEditCmdModel(item);
@@ -109,6 +101,27 @@ function App() {
     await adbShell.kill(pid.current);
   };
 
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearchChange = (text) => {
+    setSearchText(text);
+  };
+
+  const handleSearch = async () => {
+    const result = await db.selectAll(searchText);
+    setCmdModels(result);
+  };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      handleSearch();
+    }, 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [searchText]);
+
   return (
     <div className="container">
       {cmdModels.map((item) => {
@@ -137,6 +150,10 @@ function App() {
         />
       )}
 
+      <SearchFloatButton
+        text={searchText}
+        onSearchChange={handleSearchChange}
+      />
       <FloatButton onClick={handleAddClick}>+</FloatButton>
     </div>
   );

@@ -18,10 +18,15 @@ class AdbToolsDatabase {
     );
   }
 
-  async selectAll() {
+  async selectAll(keywords) {
     await this.init();
 
-    const result = await this.db.select("SELECT * FROM cmd");
+    let sql = "SELECT * FROM cmd";
+    if (keywords) {
+      sql += " WHERE keywords LIKE ?";
+    }
+
+    const result = await this.db.select(sql, keywords ? [`%${keywords}%`] : []);
     return result.map((item) => {
       return new CmdModel(
         item.id,
