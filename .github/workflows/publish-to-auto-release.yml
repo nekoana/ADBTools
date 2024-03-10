@@ -22,10 +22,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Get last commit message
-        id: last_commit
-        run: echo "::set-output name=message::$(git log -1 --pretty=%B)"
-
       - name: setup node
         uses: actions/setup-node@v4
         with:
@@ -46,6 +42,6 @@ jobs:
           tagName: ADBTools-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
           releaseName: "ADBTools v__VERSION__"
           releaseId: ${{ github.event.release.id }}
-          releaseBody: "TODO: add release notes"
+          releaseBody: "Release notes: Release of ADBTools v__VERSION__"
           releaseDraft: false
           prerelease: false
