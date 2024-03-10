@@ -44,8 +44,8 @@ jobs:
           TAURI_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
         with:
           tagName: ADBTools-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-          releaseName: "ADBTools v__VERSION__"
+          releaseName: "ADBTools"
           releaseId: ${{ github.event.release.id }}
-          releaseBody: ${{ steps.last_commit.outputs.message }}
+          releaseBody: "TODO: add release notes"
           releaseDraft: false
           prerelease: false
