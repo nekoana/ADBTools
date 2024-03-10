@@ -69,10 +69,10 @@ function EditCmdDialog({
       onDeleteRequest(cmdModel);
     } else if (e.nativeEvent.submitter.id === "save") {
       const newCmdModel = cmdModel.update(
-        title,
-        description,
-        command,
-        keywords
+        cmdState.title,
+        cmdState.description,
+        cmdState.command,
+        cmdState.keywords
       );
       onSaveRequest(newCmdModel);
     }
@@ -89,7 +89,13 @@ function EditCmdDialog({
   }, [cmdModel]);
 
   const handleExecute = () => {
-    onExecuteRequest(selectedDevice, cmdModel);
+     const newCmdModel = cmdModel.update(
+       cmdState.title,
+       cmdState.description,
+       cmdState.command,
+       cmdState.keywords
+     );
+    onExecuteRequest(selectedDevice, newCmdModel);
   };
 
   return (
