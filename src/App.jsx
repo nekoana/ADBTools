@@ -54,7 +54,7 @@ function App() {
 
     setNewOpen(false);
 
-    loadCmdModel();
+    await handleSearch();
   };
 
   const handleSaveRequest = async (cmd) => {
@@ -62,7 +62,7 @@ function App() {
 
     setEditCmdModel(null);
 
-    loadCmdModel();
+    await handleSearch();
   };
 
   const handleDeleteRequest = async (cmd) => {
@@ -70,7 +70,7 @@ function App() {
 
     setEditCmdModel(null);
 
-    loadCmdModel();
+    await handleSearch();
   };
 
   const pid = useRef(null);
@@ -103,7 +103,7 @@ function App() {
 
   const [searchText, setSearchText] = useState("");
 
-  const handleSearchChange = (text) => {
+  const handleSearchTextChange = (text) => {
     setSearchText(text);
   };
 
@@ -152,7 +152,7 @@ function App() {
 
       <SearchFloatButton
         text={searchText}
-        onSearchChange={handleSearchChange}
+        onSearchChange={handleSearchTextChange}
       />
       <FloatButton onClick={handleAddClick}>+</FloatButton>
     </div>
