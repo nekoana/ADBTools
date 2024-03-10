@@ -45,7 +45,7 @@ jobs:
         with:
           tagName: ADBTools-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
           releaseName: "ADBTools v__VERSION__"
-          releaseId: ${{ github.event.release.id }}
+          releaseId: "0.0.1"
           releaseBody: "TODO: add release notes"
           releaseDraft: false
           prerelease: false
