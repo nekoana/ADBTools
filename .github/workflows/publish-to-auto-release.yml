@@ -22,6 +22,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Get last commit message
+        id: last_commit
+        run: echo "::set-output name=message::$(git log -1 --pretty=%B)"
+
       - name: setup node
         uses: actions/setup-node@v4
         with:
@@ -29,7 +33,7 @@ jobs:
 
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
-   
+
       - name: install frontend dependencies
         run: npm install # change this to npm or pnpm depending on which one you use
 
@@ -42,8 +46,6 @@ jobs:
           tagName: ADBTools-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
           releaseName: "ADBTools v__VERSION__"
           releaseId: ${{ github.event.release.id }}
-          releaseBody: "See the assets to download this version and install."
+          releaseBody: ${{ steps.last_commit.outputs.message }}
           releaseDraft: false
           prerelease: false
-
-          
