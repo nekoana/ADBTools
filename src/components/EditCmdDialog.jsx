@@ -89,12 +89,12 @@ function EditCmdDialog({
   }, [cmdModel]);
 
   const handleExecute = () => {
-     const newCmdModel = cmdModel.update(
-       cmdState.title,
-       cmdState.description,
-       cmdState.command,
-       cmdState.keywords
-     );
+    const newCmdModel = cmdModel.update(
+      cmdState.title,
+      cmdState.description,
+      cmdState.command,
+      cmdState.keywords
+    );
     onExecuteRequest(selectedDevice, newCmdModel);
   };
 
@@ -161,11 +161,13 @@ function EditCmdDialog({
             ▶
           </button>
 
-          <DeviceList
-            devices={devices}
-            selectedDevice={selectedDevice}
-            onDeviceSelect={handleDeviceSelect}
-          />
+          {devices.length > 0 && (
+            <DeviceList
+              devices={devices}
+              selectedDevice={selectedDevice}
+              onDeviceSelect={handleDeviceSelect}
+            />
+          )}
         </div>
       </form>
       <ConsoleArea text={output} />
