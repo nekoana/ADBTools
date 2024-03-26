@@ -1,15 +1,15 @@
 {
-  "version": "0.0.1",
-  "notes": "TODO: add release notes",
-  "pub_date": "2024-03-10T11:54:13.385Z",
+  "version": "1.0.0",
+  "notes": "Release notes: Release of ADBTools v1.0.0",
+  "pub_date": "2024-03-10T14:11:10.912Z",
   "platforms": {
     "darwin-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUYXMrUzliZS83cWhTVUZnNVJ3M2U3TEpYV0ZKNm93MmVYby9lT01zcW1zM05acmtNMlNXdmRmVEN0SmVnRnU2bnBmSiswcHVKKzV3VUxMUkF3V2d6dGhSU29XWVhOTWdBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzEwMDcxNDYzCWZpbGU6QURCVG9vbHMuYXBwLnRhci5negpUaEVEa3liZTNRSTQrNjFsVjNvUXkrWmptSnFkZFF5OHNWcWllaE5UWjlPVGFQLy9VU0ZreC9pSXdHdm5TWWlIdEtZaFY3RDYyOEQxNW43THRFL2ZCQT09Cg==",
-      "url": "https://github.com/nekoana/ADBTools/releases/download/ADBTools-v0.0.1/ADBTools_x64.app.tar.gz"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUYXMrUzliZS83cW4zL2U0d0hTOU85aEZNNlJzOFI3Q29kOU0rMWVJbW1BcVJxck16TWl6L0hZend5NzdsTUJ6NVczdWtxeVBaZ2d6MEpPbkJ6dWE5VmMxOWk5VitEY1E0PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzEwMDc5Nzc5CWZpbGU6QURCVG9vbHMuYXBwLnRhci5negpIMHlHSlhPa0JQQlVoVmpXOFBhcmJkVG5tL29EUUZFR2FNZjgzUHgzZEVIdzFOdlBCREVmcW1wcTNUTk5NeExFaW84R3lCSEhUaUVleERFeDZ6dzBDQT09Cg==",
+      "url": "https://github.com/nekoana/ADBTools/releases/download/ADBTools-v1.0.0/ADBTools_x64.app.tar.gz"
     },
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUYXMrUzliZS83cXErcVlBT2tldVJpbFU3YnBEUURHMDZISDFyenk0ZzJyN0lBVXo0OExUcFEwUUEzdW5LMVVBME9VSkRTR2ZURS9UcEhQRjM3OGZRdWg5enM1bHJ2NUE4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzEwMDcxNjQ4CWZpbGU6QURCVG9vbHNfMC4wLjFfeDY0X2VuLVVTLm1zaS56aXAKRHEvN1ZUWkRramR0b0JuS2Q0bTBYNmRsbExyS3BvSlBEekNzMkZyWnBMb0lDYnNpZkNnNTEvMkY4S2dWNmx5QXJOTGdXUU5vdVArakY3YkNvTFlkQkE9PQo=",
-      "url": "https://github.com/nekoana/ADBTools/releases/download/ADBTools-v0.0.1/ADBTools_0.0.1_x64_en-US.msi.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUYXMrUzliZS83cXNXTUx2TlU4NlV0d1B0OTZ5YlZCaXppRFJkM2lnMmxIQjg2WmRSaFpEVDB6WkhiSE5vMmJPU1J0dVVvRTNOWnNwYytNNDl6aUp1YnJZc3dPVHhGTXdFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzEwMDc5ODY1CWZpbGU6QURCVG9vbHNfMS4wLjBfeDY0X2VuLVVTLm1zaS56aXAKOTBtZnpISWJ0RmRwQXZ2OFhKeHJOMkN2cGRlamtIdTR5NWlGVGU5K0R1VVVXWmJUd0hxbUhvbHUzRW4vK2RXdDcyUGx0ODJtV3o5bG40UjBSTEVzQVE9PQo=",
+      "url": "https://github.com/nekoana/ADBTools/releases/download/ADBTools-v1.0.0/ADBTools_1.0.0_x64_en-US.msi.zip"
     }
   }
 }

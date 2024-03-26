@@ -16,3 +16,15 @@
   background: linear-gradient(145deg, #cacaca, #f0f0f0);
   box-shadow: 25px 25px 40px #b3b3b3, -25px -25px 40px #ffffff;
 }
+
+.select-options {
+  display: none;
+  position: absolute;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background: linear-gradient(145deg, #f0f0f0, #cacaca);
+  box-shadow: 25px 25px 40px #b3b3b3, -25px -25px 40px #ffffff;
+  border-radius: 10px;
+  z-index: 1;
+}
