@@ -10,7 +10,8 @@
 }
 
 .modal-dialog {
-  position: relative;
+  position: fixed;
+  margin: auto;
   width: 660px;
   height: 440px;
   border-radius: 10px;
