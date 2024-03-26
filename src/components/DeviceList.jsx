@@ -17,7 +17,7 @@ function DeviceList({ devices, selectedDevice, onDeviceSelect }) {
       className="device-select"
     >
       {devices.map((device) => (
-        <option key={device} value={device}>
+        <option key={device} value={device} className="select-option">
           {device}
         </option>
       ))}
