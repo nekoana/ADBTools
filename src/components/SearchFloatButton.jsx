@@ -28,7 +28,7 @@ function SearchFloatButton({ text, onSearchChange }) {
   return (
     <button className="search-float-button">
       ⧂
-      <input
+      <input autoComplete="off"
         className="search-float-input"
         id="search-float-input"
         value={text}

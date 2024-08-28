@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "productName": "ADBTools",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "identifier": "com.kouqurong.adbtools",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "adbtools v1.0.1",
+        "title": "adbtools v1.0.2",
         "width": 1080,
         "height": 600,
         "minWidth": 1080,
@@ -36,7 +36,7 @@
   },
   "plugins": {
     "updater": {
-      "endpoints": ["https://nekoana.github.io/ADBTools/updater.json"],
+      "endpoints": ["https://github.com/nekoana/ADBTools/releases/last/download/latest.json"],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEFBRkJFRjZEQkRFNEIzREEKUldUYXMrUzliZS83cW84czY2QURBeHRjS0N1cWN1cVEvNkZxWUIrNDVUMnRrT1NZWHZ0UThBVXMK",
       "windows": {
         "installMode": "passive"
