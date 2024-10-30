@@ -1,5 +1,5 @@
 import { useDeferredValue, useEffect, useRef, useState } from "react";
-import "./App.css";
+import "./app.css";
 import FloatButton from "./components/FloatButton";
 import NewCmdDialog from "./components/NewCmdDialog";
 import EditCmdDialog from "./components/EditCmdDialog";
@@ -89,7 +89,7 @@ function App() {
       },
       () => {
         setOutput((prev) => prev + "\n" + "Process exited");
-      }
+      },
     );
   };
 

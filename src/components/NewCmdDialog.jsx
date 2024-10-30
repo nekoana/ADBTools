@@ -9,5 +9,4 @@ function NewCmdDialog({ open, onCloseRequest, onSubmit }) {
   );
 }
 
-
 export default NewCmdDialog;

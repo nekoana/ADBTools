@@ -6,12 +6,14 @@ function CmdForm({ onSubmit }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const data = ids.map((id) => {
-      return document.getElementById(id).value;
-    }).reduce((acc, value, index) => {
-      acc[ids[index]] = value;
-      return acc;
-    }, {});
+    const data = ids
+      .map((id) => {
+        return document.getElementById(id).value;
+      })
+      .reduce((acc, value, index) => {
+        acc[ids[index]] = value;
+        return acc;
+      }, {});
 
     //清除输入框
     ids.forEach((id) => {

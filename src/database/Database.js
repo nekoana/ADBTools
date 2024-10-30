@@ -14,7 +14,7 @@ class AdbToolsDatabase {
     await this.load("sqlite:adbtools.db");
 
     await this.db.execute(
-      "CREATE TABLE IF NOT EXISTS cmd (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT, description TEXT,command TEXT, keywords TEXT)"
+      "CREATE TABLE IF NOT EXISTS cmd (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT, description TEXT,command TEXT, keywords TEXT)",
     );
   }
 
@@ -33,7 +33,7 @@ class AdbToolsDatabase {
         item.title,
         item.description,
         item.command,
-        item.keywords
+        item.keywords,
       );
     });
   }
@@ -43,7 +43,7 @@ class AdbToolsDatabase {
 
     return await this.db.execute(
       "UPDATE cmd SET title = ?, description = ?, command = ?, keywords = ? WHERE id = ?",
-      [cmd.title, cmd.description, cmd.command, cmd.keywords, cmd.id]
+      [cmd.title, cmd.description, cmd.command, cmd.keywords, cmd.id],
     );
   }
 
@@ -52,7 +52,7 @@ class AdbToolsDatabase {
 
     return await this.db.execute(
       "INSERT INTO cmd(title,description,command,keywords) VALUES (?,?,?,?)",
-      [title, description, command, keywords]
+      [title, description, command, keywords],
     );
   }
 

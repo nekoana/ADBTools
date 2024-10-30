@@ -17,7 +17,9 @@
   border: none;
   outline: none;
   background: linear-gradient(145deg, #f0f0f0, #cacaca);
-  box-shadow: 27px 27px 55px #bebebe, -27px -27px 55px #ffffff;
+  box-shadow:
+    27px 27px 55px #bebebe,
+    -27px -27px 55px #ffffff;
   transition: all 0.3s;
 }
 
@@ -31,7 +33,9 @@
   border: none;
   outline: none;
   background: #e0e0e0;
-  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+  box-shadow:
+    20px 20px 60px #bebebe,
+    -20px -20px 60px #ffffff;
   border-radius: 10px;
   transition: visibility 0.3s;
 }
@@ -39,7 +43,9 @@
 .search-float-button:hover {
   width: 360px;
   border-radius: 10px;
-  box-shadow: 27px 27px 55px #bebebe, -27px -27px 55px #ffffff;
+  box-shadow:
+    27px 27px 55px #bebebe,
+    -27px -27px 55px #ffffff;
   transition: all 0.3s;
   transform: scale(0.95);
 }

@@ -45,7 +45,7 @@ function EditCmdDialog({
     const keywordsChanged = cmdState.keywords !== cmdModel.keywords;
 
     setChanged(
-      titleChanged || descriptionChanged || commandChanged || keywordsChanged
+      titleChanged || descriptionChanged || commandChanged || keywordsChanged,
     );
   }, [cmdModel, cmdState]);
 
@@ -72,7 +72,7 @@ function EditCmdDialog({
         cmdState.title,
         cmdState.description,
         cmdState.command,
-        cmdState.keywords
+        cmdState.keywords,
       );
       onSaveRequest(newCmdModel);
     }
@@ -93,7 +93,7 @@ function EditCmdDialog({
       cmdState.title,
       cmdState.description,
       cmdState.command,
-      cmdState.keywords
+      cmdState.keywords,
     );
     onExecuteRequest(selectedDevice, newCmdModel);
   };
