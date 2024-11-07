@@ -3,7 +3,7 @@ import { useState } from "react";
 import ModalDialog from "./ModalDialog";
 import "./EditCmdDialog.css";
 import DeviceList from "./DeviceList";
-import { adbShell } from "../shell/ADBShell";
+import { adbShell } from "@/shell/ADBShell";
 import ConsoleArea from "./ConsoleArea";
 
 function EditCmdDialog({

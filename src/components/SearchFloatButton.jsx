@@ -7,23 +7,24 @@ function SearchFloatButton({ text, onSearchChange }) {
   };
 
   const handleFocus = () => {
-    let input = document.querySelector("#search-float-input");
-    if (input.style.visibility !== "visible") {
-      input.focus();
-    }
+    // let input = document.querySelector("#search-float-input");
+    // if(!input) return;
+    // if (input?.style?.visibility !== "visible") {
+    //   input.focus();
+    // }
   };
 
-  useEffect(() => {
-    document
-      .querySelector("#search-float-input")
-      .addEventListener("mouseover", handleFocus);
-
-    return () => {
-      document
-        .querySelector("#search-float-input")
-        .removeEventListener("mouseover", handleFocus);
-    };
-  }, [text]);
+  // useEffect(() => {
+  //   document
+  //     .querySelector("#search-float-input")
+  //       ?.addEventListener("mouseover", handleFocus);
+  //
+  //   return () => {
+  //     document
+  //       .querySelector("#search-float-input")
+  //       ?.removeEventListener("mouseover", handleFocus);
+  //   };
+  // }, [text]);
 
   return (
     <button className="search-float-button">

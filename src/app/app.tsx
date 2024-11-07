@@ -1,14 +1,14 @@
-import { useDeferredValue, useEffect, useRef, useState } from "react";
-import "./app.css";
-import FloatButton from "./components/FloatButton";
-import NewCmdDialog from "./components/NewCmdDialog";
-import EditCmdDialog from "./components/EditCmdDialog";
-import CmdCard from "./components/CmdCard";
-import { db } from "./database/Database";
-import { adbShell } from "./shell/ADBShell";
+import { Fragment, useDeferredValue, useEffect, useRef, useState } from "react";
+import FloatButton from "../components/FloatButton";
+import NewCmdDialog from "../components/new-cmd-dialog";
+import EditCmdDialog from "../components/EditCmdDialog";
+import CmdCard from "../components/cmd-card";
+import CmdModel, { db } from "@/database/Database";
+import ADBShell from "@/shell/ADBShell";
 import { check } from "@tauri-apps/plugin-updater";
 import { relaunch } from "@tauri-apps/plugin-process";
-import SearchFloatButton from "./components/SearchFloatButton";
+import SearchFloatButton from "../components/SearchFloatButton";
+import { Child } from "@tauri-apps/plugin-shell";
 
 function App() {
   const checkUpdate = async () => {
@@ -27,7 +27,7 @@ function App() {
 
   const [cmdModels, setCmdModels] = useState(Array());
 
-  const [editCmdModel, setEditCmdModel] = useState(null);
+  const [editCmdModel, setEditCmdModel] = useState<CmdModel | null>(null);
 
   const [editOpen, setEditOpen] = useState(false);
 
@@ -37,7 +37,7 @@ function App() {
     setEditOpen(editCmdModel !== null);
   }, [editCmdModel]);
 
-  const handleEditClick = (item) => {
+  const handleEditClick = (item: CmdModel) => {
     setEditCmdModel(item);
   };
 
@@ -49,7 +49,7 @@ function App() {
     setNewOpen(false);
   };
 
-  const handleNewSubmit = async (cmd) => {
+  const handleNewSubmit = async (cmd: CmdModel) => {
     const result = await db.insert(cmd);
 
     setNewOpen(false);
@@ -57,7 +57,7 @@ function App() {
     await handleSearch();
   };
 
-  const handleSaveRequest = async (cmd) => {
+  const handleSaveRequest = async (cmd: CmdModel) => {
     await db.update(cmd);
 
     setEditCmdModel(null);
@@ -65,7 +65,7 @@ function App() {
     await handleSearch();
   };
 
-  const handleDeleteRequest = async (cmd) => {
+  const handleDeleteRequest = async (cmd: CmdModel) => {
     await db.delete(cmd);
 
     setEditCmdModel(null);
@@ -73,14 +73,14 @@ function App() {
     await handleSearch();
   };
 
-  const pid = useRef(null);
+  const pid = useRef<Child | undefined>();
 
-  const handleExecuteRequest = async (device, cmdModel) => {
-    await adbShell.kill(pid.current);
+  const handleExecuteRequest = async (device: string, cmd: CmdModel) => {
+    await ADBShell.kill(pid.current);
 
-    pid.current = await adbShell.execute(
+    pid.current = await ADBShell.execute(
       device,
-      cmdModel,
+      cmd,
       (data) => {
         setOutput((prev) => prev + "\n" + data);
       },
@@ -98,17 +98,17 @@ function App() {
 
     setOutput("");
 
-    await adbShell.kill(pid.current);
+    await ADBShell.kill(pid.current);
   };
 
   const [searchText, setSearchText] = useState("");
 
-  const handleSearchTextChange = (text) => {
+  const handleSearchTextChange = (text: string) => {
     setSearchText(text);
   };
 
   const handleSearch = async () => {
-    const result = await db.selectAll(searchText);
+    const result = (await db.search(searchText)) ?? [];
     setCmdModels(result);
   };
 
@@ -123,18 +123,18 @@ function App() {
   }, [searchText]);
 
   return (
-    <div className="container">
+    <>
       {cmdModels.map((item) => {
         return (
-          <div key={item.id}>
+          <Fragment key={item.id}>
             <CmdCard cmdModel={item} onClick={handleEditClick} />
-          </div>
+          </Fragment>
         );
       })}
 
       <NewCmdDialog
         open={newOpen}
-        onCloseRequest={handleCloseRequest}
+        onClose={handleCloseRequest}
         onSubmit={handleNewSubmit}
       />
 
@@ -155,7 +155,7 @@ function App() {
         onSearchChange={handleSearchTextChange}
       />
       <FloatButton onClick={handleAddClick}>+</FloatButton>
-    </div>
+    </>
   );
 }
 

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import "./DeviceList.css";
 
 function DeviceList({ devices, selectedDevice, onDeviceSelect }) {
