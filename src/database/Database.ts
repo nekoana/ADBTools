@@ -13,9 +13,7 @@ export default CmdModel;
 class AdbToolsDatabase {
   private db: Database | null = null;
 
-  constructor() {
-    this.prepare();
-  }
+  constructor() {}
 
   async prepare() {
     if (this.db) return;

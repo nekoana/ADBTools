@@ -77,8 +77,6 @@
 
   --header-height: 36px;
   --body-height: calc(100vh - 36px);
-
-  @apply rounded-xl;
 }
 
 /* 隐藏滚动条 */
@@ -94,7 +92,8 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  @apply flex flex-col;
+  user-select: none;
+  @apply flex flex-col rounded;
 }
 
 .titlebar {

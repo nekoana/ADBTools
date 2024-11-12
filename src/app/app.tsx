@@ -1,4 +1,11 @@
-import { Fragment, useDeferredValue, useEffect, useRef, useState } from "react";
+import {
+  Fragment,
+  useContext,
+  useDeferredValue,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import FloatButton from "../components/FloatButton";
 import NewCmdDialog from "../components/new-cmd-dialog";
 import EditCmdDialog from "../components/EditCmdDialog";
@@ -7,8 +14,8 @@ import CmdModel, { db } from "@/database/Database";
 import ADBShell from "@/shell/ADBShell";
 import { check } from "@tauri-apps/plugin-updater";
 import { relaunch } from "@tauri-apps/plugin-process";
-import SearchFloatButton from "../components/SearchFloatButton";
 import { Child } from "@tauri-apps/plugin-shell";
+import { SearchContext } from "@/app/layout";
 
 function App() {
   const checkUpdate = async () => {
@@ -101,11 +108,7 @@ function App() {
     await ADBShell.kill(pid.current);
   };
 
-  const [searchText, setSearchText] = useState("");
-
-  const handleSearchTextChange = (text: string) => {
-    setSearchText(text);
-  };
+  const searchText = useContext(SearchContext);
 
   const handleSearch = async () => {
     const result = (await db.search(searchText)) ?? [];
@@ -142,7 +145,7 @@ function App() {
         <EditCmdDialog
           open={editOpen}
           output={output}
-          cmdModel={editCmdModel}
+          cmd={editCmdModel}
           onSaveRequest={handleSaveRequest}
           onDeleteRequest={handleDeleteRequest}
           onCloseRequest={handleEditCloseRequest}
@@ -150,10 +153,6 @@ function App() {
         />
       )}
 
-      <SearchFloatButton
-        text={searchText}
-        onSearchChange={handleSearchTextChange}
-      />
       <FloatButton onClick={handleAddClick}>+</FloatButton>
     </>
   );

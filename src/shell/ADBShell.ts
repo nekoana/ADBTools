@@ -14,9 +14,9 @@ class ADBShell {
       .slice(1)
       .filter((line) => line.length > 0);
 
-    return lines.map((line) => {
-      return line.split("\t").shift();
-    });
+    return lines
+      .map((line) => line.split("\t").shift())
+      .filter((line) => line !== undefined);
   }
 
   static async execute(

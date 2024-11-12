@@ -23,7 +23,7 @@ function CmdCard({
 }) {
   return (
     <MdFilledCard
-      className="w-36 h-24 p-2 truncate items-center justify-center hover:scale-95 transition-all flex flex-col"
+      className="w-36 h-24 p-2 truncate items-center justify-center hover:scale-95 transition-all flex flex-col cursor-pointer"
       onClick={() => onClick(cmdModel)}
     >
       <Title title={cmdModel.title} />

@@ -10,6 +10,8 @@
     "frontendDist": "../out"
   },
   "app": {
+    "macOSPrivateApi": true,
+    "withGlobalTauri": true,
     "windows": [
       {
         "title": "adbtools v1.0.2",
@@ -19,6 +21,8 @@
         "minHeight": 600,
         "decorations": false,
         "transparent": true,
+        "maximizable": false,
+        "center": true,
         "shadow": true,
         "fullscreen": false
       }
