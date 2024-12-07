@@ -1,5 +1,6 @@
 .console-area {
-  position: absolute;
+  position: fixed;
+  z-index: 2147483647 !important;
   bottom: 0;
   display: flex;
   margin: auto;
@@ -41,7 +42,7 @@
 }
 .console-area:hover {
   width: 90vw;
-  height: 100%;
+  height: 90vh;
   left: calc((100vw - 100%) / -2);
   right: calc((100vw - 100%) / -2);
 }

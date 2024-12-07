@@ -1,7 +1,6 @@
 "use client";
 
 import App from "@/app/app";
-import CmdCard from "@/components/cmd-card";
 import "./page.css";
 
 export default function Home() {

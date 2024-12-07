@@ -1,14 +1,12 @@
-import {
+import React, {
   Fragment,
   useContext,
-  useDeferredValue,
   useEffect,
   useRef,
   useState,
 } from "react";
-import FloatButton from "../components/FloatButton";
 import NewCmdDialog from "../components/new-cmd-dialog";
-import EditCmdDialog from "../components/EditCmdDialog";
+import EditCmdDialog from "../components/edit-cmd-dialog";
 import CmdCard from "../components/cmd-card";
 import CmdModel, { db } from "@/database/Database";
 import ADBShell from "@/shell/ADBShell";
@@ -80,7 +78,7 @@ function App() {
     await handleSearch();
   };
 
-  const pid = useRef<Child | undefined>();
+  const pid = useRef<Child | null>(null);
 
   const handleExecuteRequest = async (device: string, cmd: CmdModel) => {
     await ADBShell.kill(pid.current);
@@ -152,8 +150,6 @@ function App() {
           onExecuteRequest={handleExecuteRequest}
         />
       )}
-
-      <FloatButton onClick={handleAddClick}>+</FloatButton>
     </>
   );
 }

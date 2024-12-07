@@ -43,7 +43,7 @@ class ADBShell {
     return await command.spawn();
   }
 
-  static async kill(pid: Child | undefined) {
+  static async kill(pid: Child | null) {
     if (pid) {
       await pid.kill();
     }
