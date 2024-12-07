@@ -100,12 +100,6 @@ body {
   height: var(--header-height);
   background: var(--md-sys-color-surface);
   user-select: none;
-  display: flex;
-  justify-content: flex-end;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
 }
 
 .titlebar-button {
