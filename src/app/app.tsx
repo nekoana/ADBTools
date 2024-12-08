@@ -14,6 +14,7 @@ import { check } from "@tauri-apps/plugin-updater";
 import { relaunch } from "@tauri-apps/plugin-process";
 import { Child } from "@tauri-apps/plugin-shell";
 import { SearchContext } from "@/app/layout";
+import { Button, Image } from "@nextui-org/react";
 
 function App() {
   const checkUpdate = async () => {
@@ -150,6 +151,16 @@ function App() {
           onExecuteRequest={handleExecuteRequest}
         />
       )}
+
+      <Button
+        radius="full"
+        onClick={handleAddClick}
+        variant="flat"
+        isIconOnly
+        className="bg-color-on-primary absolute right-2 bottom-2 w-14 h-14 p-4 shadow"
+      >
+        <Image src="add.svg" />
+      </Button>
     </>
   );
 }
