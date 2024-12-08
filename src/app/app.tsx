@@ -157,7 +157,7 @@ function App() {
         onClick={handleAddClick}
         variant="flat"
         isIconOnly
-        className="bg-color-on-primary absolute right-2 bottom-2 w-14 h-14 p-4 shadow"
+        className="bg-color-on-primary absolute right-2 bottom-2 w-14 h-14 p-4 shadow hover:shadow-inner"
       >
         <Image src="add.svg" />
       </Button>

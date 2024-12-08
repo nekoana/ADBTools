@@ -9,7 +9,11 @@ function CmdCard({
   cmdModel: CmdModel;
 }) {
   return (
-    <Card className="py-4" isPressable={true} onClick={() => onClick(cmdModel)}>
+    <Card
+      className="py-4 shadow "
+      isPressable={true}
+      onClick={() => onClick(cmdModel)}
+    >
       <CardHeader className="pb-0 flex-col items-center">
         <p className="text-tiny truncate uppercase font-bold w-full text-center">
           {cmdModel.title}
