@@ -1,18 +1,20 @@
 import {
-  ChangeEvent,
-  ChangeEventHandler,
   FormEvent,
-  FormEventHandler,
   useEffect,
   useReducer,
-  useState,
 } from "react";
 import DeviceList from "./device-list";
 import ConsoleArea from "./ConsoleArea";
-import { MdDialog } from "@/wrapper/labs/dialog";
 import CmdModel from "@/database/Database";
 import ADBShell from "@/shell/ADBShell";
 import { CmdForm } from "@/components/cmd-form";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from "@nextui-org/react";
 
 type State = {
   oldCmd: CmdModel;
@@ -127,7 +129,7 @@ function EditCmdDialog({
     const devices = await ADBShell.devices();
     dispatch({
       type: "setDevices",
-      payload: ["AAAaAAAAAAAAAAAAAA", "AaAAAAAA"],
+      payload: devices,
     });
   };
 
@@ -140,52 +142,53 @@ function EditCmdDialog({
   };
 
   return (
-    <MdDialog open={open} onClose={onCloseRequest} className="w-96">
-      <div slot="headline">
-        <h2>Edit Command</h2>
-      </div>
-      <div slot="content">
-        <CmdForm
-          defaultCmd={state.newCmd}
-          onChanged={handleChanged}
-          onSubmit={onSaveRequest}
-        />
-        {state.devices.length > 0 && (
-          <DeviceList
-            devices={state.devices}
-            selected={state.selected}
-            onSelected={handleSelected}
-          />
-        )}
-      </div>
-      <div slot="actions">
-        <div className="flex flex-row">
-          {state.changed && (
-            <button
-              id="save"
-              type="submit"
-              className="button-save-change"
-              disabled={!state.changed}
-            >
-              ✓
-            </button>
-          )}
-
-          <button type="submit" id="delete" className="button-save-change">
-            ✗
-          </button>
-
-          <button
-            type="button"
-            className="cmd-row-submit"
-            onClick={handleExecute}
+    <Modal isOpen={open} onClose={onCloseRequest} size="sm" isDismissable>
+      <ModalContent>
+        <ModalHeader>
+          <h2>Edit Command</h2>
+        </ModalHeader>
+        <ModalBody>
+          <CmdForm
+            defaultCmd={state.newCmd}
+            onChanged={handleChanged}
+            onSubmit={onSaveRequest}
           >
-            ▶
-          </button>
-          <ConsoleArea text={output} />
-        </div>
-      </div>
-    </MdDialog>
+            <DeviceList
+              devices={state.devices}
+              selected={state.selected}
+              onSelected={handleSelected}
+            />
+          </CmdForm>
+        </ModalBody>
+        <ModalFooter>
+          <div className="flex flex-row">
+            {state.changed && (
+              <button
+                id="save"
+                type="submit"
+                className="button-save-change"
+                disabled={!state.changed}
+              >
+                ✓
+              </button>
+            )}
+
+            <button type="submit" id="delete" className="button-save-change">
+              ✗
+            </button>
+
+            <button
+              type="button"
+              className="cmd-row-submit"
+              onClick={handleExecute}
+            >
+              ▶
+            </button>
+            <ConsoleArea text={output} />
+          </div>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 }
 

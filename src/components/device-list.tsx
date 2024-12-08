@@ -1,8 +1,5 @@
-import {
-  MdFilledSelect,
-  MdOutlinedSelect,
-  MdSelectOption,
-} from "@/wrapper/select";
+import { Select, SelectItem } from "@nextui-org/react";
+import { ChangeEvent } from "react";
 
 function DeviceList({
   devices,
@@ -13,25 +10,24 @@ function DeviceList({
   selected: string;
   onSelected: (device: string) => void;
 }) {
-  const handleSelected = (e: Event) => {
-    const target = e.target as HTMLSelectElement;
-    onSelected(target.value);
+  const handleSelected = (e: ChangeEvent<HTMLSelectElement>) => {
+    onSelected(e.target.value);
   };
 
   return (
-    <MdFilledSelect
-      required
-      clampMenuWidth={true}
+    <Select
+      isRequired
       value={selected}
-      className="w-full overflow-hidden"
+      placeholder="Select a device"
+      defaultSelectedKeys={[selected]}
       onChange={handleSelected}
     >
       {devices.map((device) => (
-        <MdSelectOption key={device} value={device} className="overflow-hidden">
-          <div slot="headline">{device}</div>
-        </MdSelectOption>
+        <SelectItem key={device} value={device} className="overflow-hidden">
+          {device}
+        </SelectItem>
       ))}
-    </MdFilledSelect>
+    </Select>
   );
 }
 

@@ -1,8 +1,15 @@
 import { CmdForm } from "./cmd-form";
-import { MdDialog } from "@/wrapper/labs/dialog";
-import { MdTextButton } from "@/wrapper/button";
 import CmdModel from "@/database/Database";
 import { useRef } from "react";
+import { Button } from "@nextui-org/react";
+
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+} from "@nextui-org/react";
 
 function NewCmdDialog({
   open,
@@ -20,17 +27,26 @@ function NewCmdDialog({
   };
 
   return (
-    <MdDialog open={open} onClose={onClose}>
-      <div slot="headline">
-        <h2>New Command</h2>
-      </div>
-      <div slot="content">
-        <CmdForm onSubmit={onSubmit} ref={formRef} />
-      </div>
-      <div slot="actions">
-        <MdTextButton onClick={handleSubmit}>Ok</MdTextButton>
-      </div>
-    </MdDialog>
+    <Modal isOpen={open} onClose={onClose}>
+      <ModalContent>
+        <ModalHeader>
+          <h2>New Command</h2>
+        </ModalHeader>
+        <ModalBody>
+          <CmdForm onSubmit={onSubmit} />
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            radius="full"
+            variant="flat"
+            className="bg-color-on-primary hover:shadow-inner transition-all"
+            onClick={handleSubmit}
+          >
+            Ok
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 }
 

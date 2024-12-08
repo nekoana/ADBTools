@@ -1,19 +1,18 @@
-import { MdOutlinedTextField } from "@/wrapper/text-field";
 import CmdModel from "@/database/Database";
-import React, { ChangeEvent, forwardRef, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import { Form, Input } from "@nextui-org/react";
 
-export const CmdForm = forwardRef(function (
-  {
-    onSubmit,
-    onChanged,
-    defaultCmd,
-  }: {
-    onSubmit: (cmd: CmdModel) => void;
-    onChanged?: (cmd: CmdModel) => void;
-    defaultCmd?: CmdModel;
-  },
-  formRef: React.Ref<HTMLFormElement>,
-) {
+export function CmdForm({
+  onSubmit,
+  onChanged,
+  defaultCmd,
+  children,
+}: {
+  onSubmit: (cmd: CmdModel) => void;
+  onChanged?: (cmd: CmdModel) => void;
+  defaultCmd?: CmdModel;
+  children?: React.ReactNode;
+}) {
   const [cmd, setCmd] = useState<CmdModel>(
     defaultCmd ?? {
       title: "",
@@ -40,34 +39,39 @@ export const CmdForm = forwardRef(function (
   };
 
   return (
-    <form ref={formRef} onSubmit={handleSubmit}>
-      <div className="flex flex-row items-center m-2">
-        <p className="text-lg w-24">Title:</p>
-        <MdOutlinedTextField
+    <Form onSubmit={handleSubmit} method="dialog">
+      <div className="grid grid-cols-[1fr_3fr] gap-4">
+        <p className="text-md w-24">Title:</p>
+        <Input
           value={cmd.title}
           type="text"
-          id="caption"
-          className="flex-1"
-          required={true}
+          id="title"
+          isRequired
+          onChange={handleCmdChange}
         />
-      </div>
-      <div className="flex flex-row items-center m-2">
-        <p className="text-lg w-24">Description:</p>
-        <MdOutlinedTextField id="description" value={cmd.description} />
-      </div>
-      <div className="flex flex-row items-center m-2">
-        <p className="text-lg w-24">Command:</p>
-        <MdOutlinedTextField id="command" required={true} value={cmd.command} />
-      </div>
-      <div className="flex flex-row items-center m-2">
-        <p className="text-lg w-24">Keywords:</p>
-        <MdOutlinedTextField
+        <p className="text-md w-24">Description:</p>
+        <Input
+          id="description"
+          value={cmd.description}
+          onChange={handleCmdChange}
+        />
+        <p className="text-md w-24">Command:</p>
+        <Input
+          id="command"
+          required={true}
+          value={cmd.command}
+          onChange={handleCmdChange}
+        />
+        <p className="text-md w-24">Keywords:</p>
+        <Input
           type="text"
           id="keywords"
-          required={true}
+          isRequired
           value={cmd.keywords}
+          onChange={handleCmdChange}
         />
       </div>
-    </form>
+      {children}
+    </Form>
   );
-});
+}

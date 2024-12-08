@@ -1,19 +1,10 @@
 import "../app/neumorphism.css";
-import { MdFilledCard } from "@/wrapper/labs/card";
 import CmdModel from "@/database/Database";
-
-function Title({ title }: { title: string }) {
-  return <p className="text-xl  truncate w-full text-center">{title}</p>;
-}
-
-function Description({ description }: { description: string }) {
-  return (
-    <p className="text-sm truncate w-full text-center" title={description}>
-      {description}
-    </p>
-  );
-}
-
+import {
+  Card,
+  CardHeader,
+  CardBody,
+} from "@nextui-org/react";
 function CmdCard({
   onClick,
   cmdModel,
@@ -22,13 +13,16 @@ function CmdCard({
   cmdModel: CmdModel;
 }) {
   return (
-    <MdFilledCard
-      className="w-36 h-24 p-2 truncate items-center justify-center hover:scale-95 transition-all flex flex-col cursor-pointer"
-      onClick={() => onClick(cmdModel)}
-    >
-      <Title title={cmdModel.title} />
-      <Description description={cmdModel.description} />
-    </MdFilledCard>
+    <Card className="py-4" isPressable={true} onClick={() => onClick(cmdModel)}>
+      <CardHeader className="pb-0 flex-col items-center">
+        <p className="text-tiny truncate uppercase font-bold w-full text-center">
+          {cmdModel.title}
+        </p>
+      </CardHeader>
+      <CardBody className="py-0 text-small text-default-400 items-center">
+        <p className="w-full text-center">{cmdModel.description}</p>
+      </CardBody>
+    </Card>
   );
 }
 
