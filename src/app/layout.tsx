@@ -4,7 +4,7 @@
 import { Inter } from "next/font/google";
 import React from "react";
 import { getCurrentWindow } from "@tauri-apps/api/window";
-import { Input } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import { Image } from "@nextui-org/react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -39,18 +39,16 @@ function RootLayout({
             variant="underlined"
             isClearable
             placeholder="Search"
-            classNames = {{
-                "innerWrapper":"pb-0",
-                "inputWrapper":"border-b-outline hover:border-b-primary focus:border-b-primary",
+            classNames={{
+              innerWrapper: "pb-0",
+              inputWrapper:
+                "border-b-outline hover:border-b-primary focus:border-b-primary",
             }}
             className="relative w-auto h-full mx-auto transition-all mb-0"
             onValueChange={setSearchText}
             onClear={() => setSearchText("")}
             startContent={
-              <Image
-                src="https://api.iconify.design/mdi:search.svg"
-                alt="search"
-              />
+              <Image src="search.svg" width={20} height={20} alt="search" />
             }
           />
 
@@ -58,23 +56,22 @@ function RootLayout({
             className="ml-auto absolute right-0 flex flex-row"
             id="control-area"
           >
-            <div
-              className="titlebar-button"
-              id="titlebar-minimize"
+            <Button
+              radius="full"
+              isIconOnly
+              className="bg-transparent hover:shadow-inner"
               onClick={handleMinimize}
             >
-              <img
-                src="https://api.iconify.design/mdi:window-minimize.svg"
-                alt="minimize"
-              />
-            </div>
-            <div
-              className="titlebar-button"
-              id="titlebar-close"
+              <Image width={20} height={20} src="mini.svg" alt="minimize" />
+            </Button>
+            <Button
+              radius="full"
+              className="bg-transparent hover:shadow-inner"
+              isIconOnly
               onClick={handleClose}
             >
-              <img src="https://api.iconify.design/mdi:close.svg" alt="close" />
-            </div>
+              <Image width={20} height={20} src="close.svg" alt="close" />
+            </Button>
           </div>
         </div>
         <SearchContext.Provider value={searchText}>
