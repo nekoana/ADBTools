@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.2",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -12,7 +12,7 @@
     "prettier:check": "prettier --check --ignore-unknown ."
   },
   "dependencies": {
-    "@nextui-org/react": "^2.6.4",
+    "@nextui-org/react": "^2.6.5",
     "@tauri-apps/api": "^2.0.0",
     "@tauri-apps/plugin-os": "^2.0.0",
     "@tauri-apps/plugin-process": "^2.0.0",
@@ -20,15 +20,15 @@
     "@tauri-apps/plugin-sql": "^2.0.0",
     "@tauri-apps/plugin-updater": "^2.0.0",
     "framer-motion": "^11.13.1",
-    "next": "^14.0.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.0.0",
     "@types/node": "^20",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@vercel/style-guide": "^6.0.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.1",

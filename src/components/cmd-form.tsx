@@ -7,11 +7,13 @@ export function CmdForm({
   onChanged,
   defaultCmd,
   children,
+  ref,
 }: {
   onSubmit: (cmd: CmdModel) => void;
   onChanged?: (cmd: CmdModel) => void;
   defaultCmd?: CmdModel;
   children?: React.ReactNode;
+  ref?: React.Ref<HTMLFormElement>;
 }) {
   const [cmd, setCmd] = useState<CmdModel>(
     defaultCmd ?? {
@@ -25,8 +27,10 @@ export function CmdForm({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
-    form.reset();
-    onSubmit(cmd);
+    if (form.checkValidity()) {
+      form.reset();
+      onSubmit(cmd);
+    }
   };
 
   const handleCmdChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +43,7 @@ export function CmdForm({
   };
 
   return (
-    <Form onSubmit={handleSubmit} method="dialog">
+    <Form onSubmit={handleSubmit} method="dialog" ref={ref}>
       <div className="grid grid-cols-[1fr_3fr] gap-4">
         <p className="text-md w-24">Title:</p>
         <Input
@@ -47,6 +51,7 @@ export function CmdForm({
           type="text"
           id="title"
           isRequired
+          required={true}
           onChange={handleCmdChange}
         />
         <p className="text-md w-24">Description:</p>
@@ -58,6 +63,7 @@ export function CmdForm({
         <p className="text-md w-24">Command:</p>
         <Input
           id="command"
+          isRequired
           required={true}
           value={cmd.command}
           onChange={handleCmdChange}
@@ -67,6 +73,7 @@ export function CmdForm({
           type="text"
           id="keywords"
           isRequired
+          required={true}
           value={cmd.keywords}
           onChange={handleCmdChange}
         />

@@ -10,6 +10,10 @@ const config: Config = {
     extend: {},
   },
   darkMode: "class",
-  plugins: [nextui()],
+  plugins: [
+    nextui({
+      prefix: "md-sys-color",
+    }),
+  ],
 };
 export default config;

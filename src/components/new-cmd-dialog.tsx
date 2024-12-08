@@ -33,7 +33,7 @@ function NewCmdDialog({
           <h2>New Command</h2>
         </ModalHeader>
         <ModalBody>
-          <CmdForm onSubmit={onSubmit} />
+          <CmdForm ref={formRef} onSubmit={onSubmit} />
         </ModalBody>
         <ModalFooter>
           <Button

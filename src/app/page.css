@@ -79,6 +79,7 @@
   --md-sys-color-on-error: #ffffff;
   --md-sys-color-error-container: #ffdad6;
   --md-sys-color-on-error-container: #410002;
+  --md-sys-color-focus: #f7b337;
 
   --header-height: 36px;
   --body-height: calc(100vh - 36px);
