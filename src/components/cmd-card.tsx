@@ -1,10 +1,6 @@
 import "../app/neumorphism.css";
 import CmdModel from "@/database/Database";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-} from "@nextui-org/react";
+import { Card, CardHeader, CardBody } from "@nextui-org/react";
 function CmdCard({
   onClick,
   cmdModel,

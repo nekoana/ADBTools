@@ -7,10 +7,11 @@
     text-wrap: balance;
   }
 
-  .focus-border-b-primary {
+  .border-b-outline {
     border-bottom-color: var(--md-sys-color-outline);
   }
-  .focus-border-b-primary:focus {
+
+  .border-b-primary {
     border-bottom-color: var(--md-sys-color-primary);
   }
 
