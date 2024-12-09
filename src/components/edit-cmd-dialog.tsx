@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useReducer, useRef } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import DeviceList from "./device-list";
 import ConsoleArea from "./console-area";
 import CmdModel from "@/database/Database";
