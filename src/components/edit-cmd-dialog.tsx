@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useReducer, useRef } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import DeviceList from "./device-list";
 import ConsoleArea from "./console-area";
 import CmdModel from "@/database/Database";
@@ -13,6 +13,7 @@ import {
   Button,
   Image,
 } from "@nextui-org/react";
+import { Child } from "@tauri-apps/plugin-shell";
 
 type State = {
   oldCmd: CmdModel;
@@ -20,18 +21,31 @@ type State = {
   changed: boolean;
   devices: string[];
   selected: string;
+  output: string;
+  executing: boolean;
 };
 
-type Action = {
-    type: "setNewCmd";
-    payload: CmdModel;
-    } | {
-    type: "setDevices";
-    payload: string[];
-    } | {
-    type: "setSelected";
-    payload: string;
-}
+type Action =
+  | {
+      type: "setNewCmd";
+      payload: CmdModel;
+    }
+  | {
+      type: "setDevices";
+      payload: string[];
+    }
+  | {
+      type: "setSelected";
+      payload: string;
+    }
+  | {
+      type: "setAdbOutput";
+      payload: string;
+    }
+  | {
+      type: "setExecuting";
+      payload: boolean;
+    };
 
 function deepEqual(a: any, b: any): boolean {
   if (a === b) return true;
@@ -62,14 +76,8 @@ function reducer(state: State, action: Action): State {
       };
     }
     case "setDevices": {
-      const devices = action.payload;
-      let selected = state.selected;
-      if (devices.length > 0) {
-        selected = devices[0];
-      }
       return {
         ...state,
-        selected:selected,
         devices: action.payload,
       };
     }
@@ -79,39 +87,33 @@ function reducer(state: State, action: Action): State {
         selected: action.payload,
       };
     }
+    case "setAdbOutput":
+      return {
+        ...state,
+        output: state.output + action.payload,
+      };
+    case "setExecuting":
+      return {
+        ...state,
+        executing: action.payload,
+      };
   }
 }
 
 function EditCmdDialog({
-  open,
-  output,
   cmd,
-  isExecuting,
-  onClearRequest,
   onCloseRequest,
   onSaveRequest,
   onDeleteRequest,
-  onExecuteRequest,
 }: {
-  open: boolean;
-  output: string;
-  cmd: CmdModel;
-  isExecuting: boolean;
-  onClearRequest: () => void;
+  cmd: CmdModel | null;
   onCloseRequest: () => void;
   onSaveRequest: (newModel: CmdModel) => void;
   onDeleteRequest: (cmd: CmdModel) => void;
-  onExecuteRequest: (device: string, cmd: CmdModel) => void;
 }) {
-  const [state, dispatch] = useReducer(reducer, {
-    oldCmd: cmd,
-    newCmd: cmd,
-    changed: false,
-    devices: [],
-    selected: "",
-  });
-
   const formRef = useRef<HTMLFormElement>(null);
+
+  const pid = useRef<Child | null>(null);
 
   const handleChanged = (cmd: CmdModel) => {
     dispatch({ type: "setNewCmd", payload: cmd });
@@ -121,16 +123,30 @@ function EditCmdDialog({
     dispatch({ type: "setSelected", payload: device });
   };
 
-  const handleExecute = () => {
-    onExecuteRequest(state.selected, state.newCmd);
-  };
-
   const handleDelete = () => {
     onDeleteRequest(state.newCmd);
   };
 
   const handleSave = () => {
     onSaveRequest(state.newCmd);
+  };
+
+  const handleExecute = async () => {
+    await ADBShell.kill(pid.current);
+    dispatch({ type: "setExecuting", payload: true });
+    pid.current = await ADBShell.execute(
+        state.selected,
+        state.newCmd,
+        (data) => {
+          dispatch({ type: "setAdbOutput", payload: data });
+        },
+        (data) => {
+          dispatch({ type: "setAdbOutput", payload: data });
+        },
+        () => {
+          dispatch({ type: "setExecuting", payload: false });
+        },
+    );
   };
 
   const fetchDevices = async () => {
@@ -142,11 +158,47 @@ function EditCmdDialog({
   };
 
   useEffect(() => {
+    return () => {
+      ADBShell.kill(pid.current);
+    };
+  }, [cmd]);
+
+  useEffect(() => {
     fetchDevices();
   }, []);
 
+
+  const [state, dispatch] = useReducer(reducer, {
+    oldCmd: cmd ?? {
+        title: "",
+        description: "",
+        command: "",
+        keywords: "",
+    },
+    newCmd: cmd ?? {
+      title: "",
+      description: "",
+      command: "",
+      keywords: "",
+    },
+    changed: false,
+    devices: [],
+    selected: "",
+    output: "",
+    executing: false,
+  });
+
+  if (!cmd) {
+    return <></>;
+  }
   return (
-    <Modal isOpen={open} onClose={onCloseRequest} size="sm" isDismissable>
+    <Modal
+      isOpen={true}
+      onClose={onCloseRequest}
+      size="sm"
+      isDismissable
+      className="bg-color-background"
+    >
       <ModalContent>
         <ModalHeader>
           <h2>Edit Command</h2>
@@ -158,11 +210,7 @@ function EditCmdDialog({
             onSubmit={onSaveRequest}
             ref={formRef}
           >
-            <DeviceList
-              devices={state.devices}
-              selected={state.selected}
-              onSelected={handleSelected}
-            />
+            <DeviceList devices={state.devices} onSelected={handleSelected} />
           </CmdForm>
         </ModalBody>
         <ModalFooter>
@@ -189,14 +237,14 @@ function EditCmdDialog({
 
             <Button
               isIconOnly
-              isLoading={isExecuting}
+              isLoading={state.executing}
               radius="full"
               className="bg-transparent hover:shadow-inner"
               onClick={handleExecute}
             >
               <Image src="execute.svg" className="p-2" />
             </Button>
-            <ConsoleArea text={output} onClear={onClearRequest} />
+            <ConsoleArea text={state.output} />
           </div>
         </ModalFooter>
       </ModalContent>

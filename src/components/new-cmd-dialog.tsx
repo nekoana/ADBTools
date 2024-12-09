@@ -27,7 +27,7 @@ function NewCmdDialog({
   };
 
   return (
-    <Modal isOpen={open} onClose={onClose}>
+    <Modal isOpen={open} onClose={onClose} className="bg-color-background">
       <ModalContent>
         <ModalHeader>
           <h2>New Command</h2>

@@ -1,15 +1,23 @@
 {
-  "version": "1.0.1",
-  "notes": "Release notes: Optimize some experiences",
-  "pub_date": "2024-03-26T00:36:05.644Z",
+  "version": "2.0.0",
+  "notes": "Release notes: update to nextui",
+  "pub_date": "2024-12-12T01:09:25.176Z",
   "platforms": {
-    "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUYXMrUzliZS83cXB3b3gydzc5RFhRQUtwNjl4M2xuWjhEMWNiYzNCNGlXaUthTzVNZnVLL25SRWZmb3UrQVI1Z2RjRDE2aXZaK0RseElKVk11SGVMZ25nK3hxUWRBaXdnPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzExNDEzMjYwCWZpbGU6QURCVG9vbHNfMS4wLjFfeDY0X2VuLVVTLm1zaS56aXAKQmVjczZMUmk4NE5uRVJETGFyNHhtUlRHSGhna254RGpiR1NrSWJCbW9Db1prRGs0WFBmbG1ldTN1cWJyNFBuMVJ0WkhZbjBLT1p0WDg3RXdrcFEvQ2c9PQo=",
-      "url": "https://github.com/nekoana/ADBTools/releases/download/ADBTools-v1.0.1/ADBTools_1.0.1_x64_en-US.msi.zip"
-    },
     "darwin-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUYXMrUzliZS83cXQvVlVIVVdZK1RCaXFWZmZUNnpkNDMxQkQyYVhYZk9Ocy9SeXc0ZVVwVzgreHp5RW1rNVlrdDJDamZlOC9jM3djNStqZlVqUGtiUmhsNG0vL3FjaUF3PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzExNDEzMzYxCWZpbGU6QURCVG9vbHMuYXBwLnRhci5negpWNkowNWJlRTBhcVZ3YUxaL0VacGhmbVJqeHUrUkhlaVg3aEJaSVgrd1dpcU5Lckl0MHFtVWtwK3BEOTRCOVYrbG81T0ZZdFByTkN1U0RGRkhJVVVEdz09Cg==",
-      "url": "https://github.com/nekoana/ADBTools/releases/download/ADBTools-v1.0.1/ADBTools_x64.app.tar.gz"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUYXMrUzliZS83cWczdm40YzhHOTNXM2F3eGY2c3R6TG9TWkxnZE1uOXlFZmpmVVJVSmRxN0FoSlVqTXIxakY3dnVtWEEwTHdDYzE4U2libG1qcm53Y0pSVk1FN0RUVHdBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzMzOTY1NDUxCWZpbGU6QURCVG9vbHMuYXBwLnRhci5negpaVWJ0QUd3aVpFK0dJRmVjMlhLNnBZN1k2Q1ZGakxORDArMHhGbk5qQ2RVSFBxYmNISlgxcnA5YzhMK3FwL090b0xJeXhhT2gvUkJWRzcvOFlnMmFEZz09Cg==",
+      "url": "https://github.com/nekoana/ADBTools/releases/download/ADBTools-v2.0.0/ADBTools_x64.app.tar.gz"
+    },
+    "darwin-aarch64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUYXMrUzliZS83cXB0dmdKU3VWTlRENlNLTkwwL2YyWE5BWTZJcVk5WTVsWDlmQ1ZYRGMxdkJ4Zlc3SmUzN0VLeGZkWnZFUFBXQ0NvaHpDYXgrTyt1cVl6enZBMHUyaWc4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzMzOTY1NTUyCWZpbGU6QURCVG9vbHMuYXBwLnRhci5negpzcU5tT2ZRUndja29ZMjBEbmJESHh4TWVab0xxUXZZY2ZPSGZZRUZaSk01ZjRZeXpLb1l6S0lhaGtpeUg1d3puNFdiQWtIVURkVUVNYXBsWGd4aTBDZz09Cg==",
+      "url": "https://github.com/nekoana/ADBTools/releases/download/ADBTools-v2.0.0/ADBTools_aarch64.app.tar.gz"
+    },
+    "linux-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUYXMrUzliZS83cXRpYnlnR01ZMkVBbzF2WjB6YlhiM3ltQTRvbkczeGQxbkdoN0ZabGxYN2Z4ZG1EUUo0YXQ5R3NrWmFpZzBweW94cnNDOUNvTGRISlJzaEtwSEhGS1FrPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzMzOTY1NTcwCWZpbGU6QURCVG9vbHNfMi4wLjBfYW1kNjQuQXBwSW1hZ2UKWWFleExGbTdaT0VYSDNXUG8rNjEyQzM5U3NqQmpoZ0R6eC9wZk9ESDA3Qmk1Rld0QjNTQ0JiRDBXZCtDTC84SUsray84K0ZXRnhCUTFROE9RVmc3Q3c9PQo=",
+      "url": "https://github.com/nekoana/ADBTools/releases/download/ADBTools-v2.0.0/ADBTools_2.0.0_amd64.AppImage"
+    },
+    "windows-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUYXMrUzliZS83cXR5bWxLTGM2VDlqeHg5c1FGeW5WNi9XMjAxK3F3M0JlRUJOT1BRTEdVai9NSWZhcUhlOW5WMk5SVS84NmVZN3dXU1NHeU1TamFPRUxPeXQ1b3phWndBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzMzOTY1NzYyCWZpbGU6QURCVG9vbHNfMi4wLjBfeDY0X2VuLVVTLm1zaQpDUXgrSzZqdzcvNnRrR1VMQTlDbHNUY3FSLzJ4M2hMU081K1VDY1J0NXU2WjlHQWFWTGluT3V0ci9YeFY4TmR0bmY3NGR2cmNpRENOU1ByQkVuNU5EZz09Cg==",
+      "url": "https://github.com/nekoana/ADBTools/releases/download/ADBTools-v2.0.0/ADBTools_2.0.0_x64_en-US.msi"
     }
   }
 }

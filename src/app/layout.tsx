@@ -6,10 +6,11 @@ import React from "react";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { Button, Input } from "@nextui-org/react";
 import { Image } from "@nextui-org/react";
+import { SearchContext } from "./search";
+import { getVersion } from "@tauri-apps/api/app";
+import { Chip } from "@nextui-org/react";
 
 const inter = Inter({ subsets: ["latin"] });
-
-const SearchContext = React.createContext("");
 
 function RootLayout({
   children,
@@ -28,13 +29,28 @@ function RootLayout({
     await window.minimize();
   };
 
+  const [version, setVersion] = React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    getVersion().then((v) => {
+      setVersion(v);
+    });
+  }, []);
+
   return (
     <html lang="en">
       <body className={inter.className}>
         <div
           data-tauri-drag-region
-          className="fixed titlebar flex flex-row max-w-full  top-0 left-0 right-0"
+          className="fixed titlebar flex flex-row max-w-full place-items-center top-0 left-0 right-0"
         >
+          <Chip
+            className="m-2 absolute bg-color-background shadow cursor-default"
+            radius="full"
+          >
+            <span className="text-sm">Version: {version}</span>
+          </Chip>
+
           <Input
             variant="underlined"
             isClearable
@@ -83,4 +99,3 @@ function RootLayout({
 }
 
 export default RootLayout;
-export { SearchContext };
