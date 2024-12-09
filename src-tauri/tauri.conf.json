@@ -1,22 +1,31 @@
 {
-  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "ADBTools",
   "version": "1.0.2",
   "identifier": "com.kouqurong.adbtools",
   "build": {
-    "beforeDevCommand": "npm run dev",
-    "devUrl": "http://localhost:1420",
     "beforeBuildCommand": "npm run build",
-    "frontendDist": "../dist"
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:3000",
+    "frontendDist": "../out"
   },
   "app": {
+    "macOSPrivateApi": true,
+    "withGlobalTauri": true,
     "windows": [
       {
         "title": "adbtools v1.0.2",
         "width": 1080,
         "height": 600,
         "minWidth": 1080,
-        "minHeight": 600
+        "minHeight": 600,
+        "decorations": false,
+        "transparent": true,
+        "maximizable": false,
+        "resizable": true,
+        "center": true,
+        "shadow": true,
+        "fullscreen": false
       }
     ],
     "security": {
@@ -36,7 +45,7 @@
   },
   "plugins": {
     "updater": {
-      "endpoints": ["https://github.com/nekoana/ADBTools/releases/last/download/latest.json"],
+        "endpoints": ["https://github.com/nekoana/ADBTools/releases/latest/download/latest.json"],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEFBRkJFRjZEQkRFNEIzREEKUldUYXMrUzliZS83cW84czY2QURBeHRjS0N1cWN1cVEvNkZxWUIrNDVUMnRrT1NZWHZ0UThBVXMK",
       "windows": {
         "installMode": "passive"
