@@ -1,6 +1,6 @@
-import { FormEvent, useEffect, useReducer } from "react";
+import { FormEvent, useEffect, useReducer, useRef } from "react";
 import DeviceList from "./device-list";
-import ConsoleArea from "./ConsoleArea";
+import ConsoleArea from "./console-area";
 import CmdModel from "@/database/Database";
 import ADBShell from "@/shell/ADBShell";
 import { CmdForm } from "@/components/cmd-form";
@@ -10,6 +10,8 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
+  Button,
+  Image,
 } from "@nextui-org/react";
 
 type State = {
@@ -21,9 +23,15 @@ type State = {
 };
 
 type Action = {
-  type: "setNewCmd" | "setDevices" | "setSelected";
-  payload: CmdModel | boolean | string[] | string;
-};
+    type: "setNewCmd";
+    payload: CmdModel;
+    } | {
+    type: "setDevices";
+    payload: string[];
+    } | {
+    type: "setSelected";
+    payload: string;
+}
 
 function deepEqual(a: any, b: any): boolean {
   if (a === b) return true;
@@ -46,7 +54,7 @@ function deepEqual(a: any, b: any): boolean {
 function reducer(state: State, action: Action): State {
   switch (action.type) {
     case "setNewCmd": {
-      const newCmd = action.payload as CmdModel;
+      const newCmd = action.payload;
       return {
         ...state,
         newCmd,
@@ -54,21 +62,21 @@ function reducer(state: State, action: Action): State {
       };
     }
     case "setDevices": {
-      const devices = action.payload as string[];
+      const devices = action.payload;
       let selected = state.selected;
-      if (selected === "" && devices.length > 0) {
+      if (devices.length > 0) {
         selected = devices[0];
       }
       return {
         ...state,
-        devices: action.payload as string[],
-        selected,
+        selected:selected,
+        devices: action.payload,
       };
     }
     case "setSelected": {
       return {
         ...state,
-        selected: action.payload as string,
+        selected: action.payload,
       };
     }
   }
@@ -78,6 +86,8 @@ function EditCmdDialog({
   open,
   output,
   cmd,
+  isExecuting,
+  onClearRequest,
   onCloseRequest,
   onSaveRequest,
   onDeleteRequest,
@@ -86,6 +96,8 @@ function EditCmdDialog({
   open: boolean;
   output: string;
   cmd: CmdModel;
+  isExecuting: boolean;
+  onClearRequest: () => void;
   onCloseRequest: () => void;
   onSaveRequest: (newModel: CmdModel) => void;
   onDeleteRequest: (cmd: CmdModel) => void;
@@ -99,6 +111,8 @@ function EditCmdDialog({
     selected: "",
   });
 
+  const formRef = useRef<HTMLFormElement>(null);
+
   const handleChanged = (cmd: CmdModel) => {
     dispatch({ type: "setNewCmd", payload: cmd });
   };
@@ -107,18 +121,16 @@ function EditCmdDialog({
     dispatch({ type: "setSelected", payload: device });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleExecute = () => {
+    onExecuteRequest(state.selected, state.newCmd);
+  };
 
-    // if (e.nativeEvent.submitter.id === "delete") {
-    //   onDeleteRequest(cmd);
-    // } else if (e.nativeEvent.submitter.id === "save") {
-    //   const newCmd = {
-    //     ...cmd,
-    //     ...cmdState,
-    //   };
-    //   onSaveRequest(newCmd);
-    // }
+  const handleDelete = () => {
+    onDeleteRequest(state.newCmd);
+  };
+
+  const handleSave = () => {
+    onSaveRequest(state.newCmd);
   };
 
   const fetchDevices = async () => {
@@ -133,10 +145,6 @@ function EditCmdDialog({
     fetchDevices();
   }, []);
 
-  const handleExecute = () => {
-    onExecuteRequest(state.selected, state.newCmd);
-  };
-
   return (
     <Modal isOpen={open} onClose={onCloseRequest} size="sm" isDismissable>
       <ModalContent>
@@ -148,6 +156,7 @@ function EditCmdDialog({
             defaultCmd={state.newCmd}
             onChanged={handleChanged}
             onSubmit={onSaveRequest}
+            ref={formRef}
           >
             <DeviceList
               devices={state.devices}
@@ -159,28 +168,35 @@ function EditCmdDialog({
         <ModalFooter>
           <div className="flex flex-row">
             {state.changed && (
-              <button
-                id="save"
-                type="submit"
-                className="button-save-change"
-                disabled={!state.changed}
+              <Button
+                isIconOnly
+                radius="full"
+                className="bg-transparent hover:shadow-inner"
+                onClick={handleSave}
               >
-                ✓
-              </button>
+                <Image src="save.svg" className="p-2" />
+              </Button>
             )}
 
-            <button type="submit" id="delete" className="button-save-change">
-              ✗
-            </button>
+            <Button
+              isIconOnly
+              radius="full"
+              className="bg-transparent hover:shadow-inner"
+              onClick={handleDelete}
+            >
+              <Image src="delete.svg" className="p-2" />
+            </Button>
 
-            <button
-              type="button"
-              className="cmd-row-submit"
+            <Button
+              isIconOnly
+              isLoading={isExecuting}
+              radius="full"
+              className="bg-transparent hover:shadow-inner"
               onClick={handleExecute}
             >
-              ▶
-            </button>
-            <ConsoleArea text={output} />
+              <Image src="execute.svg" className="p-2" />
+            </Button>
+            <ConsoleArea text={output} onClear={onClearRequest} />
           </div>
         </ModalFooter>
       </ModalContent>

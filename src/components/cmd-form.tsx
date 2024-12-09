@@ -1,5 +1,5 @@
 import CmdModel from "@/database/Database";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Form, Input } from "@nextui-org/react";
 
 export function CmdForm({
@@ -23,6 +23,12 @@ export function CmdForm({
       keywords: "",
     },
   );
+
+  useEffect(() => {
+    if (onChanged) {
+      onChanged(cmd);
+    }
+  }, [cmd]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
