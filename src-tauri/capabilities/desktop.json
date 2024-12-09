@@ -1,4 +1,5 @@
 {
+  "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "desktop-capability",
   "platforms": [
     "macOS",
@@ -6,6 +7,80 @@
     "linux"
   ],
   "permissions": [
-    "updater:default"
+    "core:path:default",
+    "core:event:default",
+    "core:window:default",
+    "core:window:allow-close",
+    "core:window:allow-minimize",
+    "core:window:allow-start-dragging",
+    "core:app:default",
+    "core:resources:default",
+    "core:menu:default",
+    "core:tray:default",
+    "sql:allow-load",
+    "sql:allow-execute",
+    "sql:allow-select",
+    "sql:allow-close",
+    "updater:allow-check",
+    "updater:allow-download-and-install",
+    {
+      "identifier": "shell:allow-open",
+      "allow": [
+        {
+          "name": "adb",
+          "cmd": "adb",
+          "sidecar": false,
+          "args": true
+        }
+      ]
+    },
+
+    {
+      "identifier":  "shell:allow-spawn",
+      "allow": [
+        {
+          "name": "adb",
+          "cmd": "adb",
+          "sidecar": false,
+          "args": true
+        }
+      ]
+    },
+
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "adb",
+          "cmd": "adb",
+          "sidecar": false,
+          "args": true
+        }
+      ]
+    },
+
+    {
+      "identifier": "shell:allow-kill",
+      "allow": [
+        {
+          "name": "adb",
+          "cmd": "adb",
+          "sidecar": false,
+          "args": true
+        }
+      ]
+    },
+
+    {
+      "identifier": "shell:allow-stdin-write",
+      "allow": [
+        {
+          "name": "adb",
+          "cmd": "adb",
+          "sidecar": false,
+          "args": true
+        }
+      ]
+    }
   ]
 }

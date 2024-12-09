@@ -33,6 +33,18 @@
     },
 
     {
+      "identifier":  "shell:allow-spawn",
+      "allow": [
+        {
+          "name": "adb",
+          "cmd": "adb",
+          "sidecar": false,
+          "args": true
+        }
+      ]
+    },
+
+    {
       "identifier": "shell:allow-execute",
       "allow": [
         {

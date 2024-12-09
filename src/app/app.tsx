@@ -149,6 +149,7 @@ function App() {
   const handleEditClose = async () => {
     dispatch({ type: "setEditCmdModel", payload: null });
     await ADBShell.kill(pid.current);
+    dispatch({ type: "setIsExecuting", payload: false });
   };
 
   const searchText = useContext(SearchContext);
