@@ -22,6 +22,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
       - name: setup node
         uses: actions/setup-node@v4
         with:
@@ -42,6 +46,6 @@ jobs:
           tagName: ADBTools-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
           releaseName: "ADBTools v__VERSION__"
           releaseId: ${{ github.event.release.id }}
-          releaseBody: "Release notes: Optimize some experiences"
-          releaseDraft: false
+          releaseBody: "Release notes: TODO!"
+          releaseDraft: true
           prerelease: false
