@@ -13,8 +13,8 @@ import ADBShell from "@/shell/ADBShell";
 import { check } from "@tauri-apps/plugin-updater";
 import { relaunch } from "@tauri-apps/plugin-process";
 import { Child } from "@tauri-apps/plugin-shell";
-import { SearchContext } from "@/app/layout";
 import { Button, Image } from "@nextui-org/react";
+import {SearchContext} from "@/app/search";
 
 type State = {
   isNewCmdOpen: boolean;
