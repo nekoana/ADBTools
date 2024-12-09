@@ -6,10 +6,10 @@ import React from "react";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import { Button, Input } from "@nextui-org/react";
 import { Image } from "@nextui-org/react";
+import { SearchContext } from "./search";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const SearchContext = React.createContext("");
 
 function RootLayout({
   children,
@@ -83,4 +83,3 @@ function RootLayout({
 }
 
 export default RootLayout;
-export { SearchContext };
