@@ -14,7 +14,7 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "adbtools v1.0.2",
+        "title": "adbtools",
         "width": 1080,
         "height": 600,
         "minWidth": 1080,

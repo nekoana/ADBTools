@@ -64,10 +64,12 @@
   --md-sys-color-surface-tint: #7f5700;
   --md-sys-color-primary: #7f5700;
   --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-foreground: #7f5700;
   --md-sys-color-primary-container: #f7b337;
   --md-sys-color-on-primary-container: #442d00;
   --md-sys-color-inverse-primary: #ffba3e;
   --md-sys-color-secondary: #765a2b;
+  --md-sys-color-secondary-foreground: #765a2b;
   --md-sys-color-on-secondary: #ffffff;
   --md-sys-color-secondary-container: #ffdca9;
   --md-sys-color-on-secondary-container: #5c4316;
