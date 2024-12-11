@@ -7,11 +7,10 @@ import { getCurrentWindow } from "@tauri-apps/api/window";
 import { Button, Input } from "@nextui-org/react";
 import { Image } from "@nextui-org/react";
 import { SearchContext } from "./search";
-import { getVersion } from '@tauri-apps/api/app';
-import {Chip} from "@nextui-org/react";
+import { getVersion } from "@tauri-apps/api/app";
+import { Chip } from "@nextui-org/react";
 
 const inter = Inter({ subsets: ["latin"] });
-
 
 function RootLayout({
   children,
@@ -32,11 +31,11 @@ function RootLayout({
 
   const [version, setVersion] = React.useState<string | null>(null);
 
-    React.useEffect(() => {
-        getVersion().then((v) => {
-        setVersion(v);
-        });
-    }, []);
+  React.useEffect(() => {
+    getVersion().then((v) => {
+      setVersion(v);
+    });
+  }, []);
 
   return (
     <html lang="en">
@@ -45,10 +44,12 @@ function RootLayout({
           data-tauri-drag-region
           className="fixed titlebar flex flex-row max-w-full place-items-center top-0 left-0 right-0"
         >
-
-            <Chip className="m-2 absolute bg-color-background shadow cursor-default"  radius="full">
-              <span className="text-sm">Version: {version}</span>
-            </Chip>
+          <Chip
+            className="m-2 absolute bg-color-background shadow cursor-default"
+            radius="full"
+          >
+            <span className="text-sm">Version: {version}</span>
+          </Chip>
 
           <Input
             variant="underlined"

@@ -1,46 +1,28 @@
-import React, {
-  Fragment,
-  useContext,
-  useEffect,
-  useReducer,
-  useRef,
-} from "react";
+import React, { Fragment, useContext, useEffect, useReducer } from "react";
 import NewCmdDialog from "../components/new-cmd-dialog";
 import EditCmdDialog from "../components/edit-cmd-dialog";
 import CmdCard from "../components/cmd-card";
 import CmdModel, { db } from "@/database/Database";
-import ADBShell from "@/shell/ADBShell";
 import { check } from "@tauri-apps/plugin-updater";
 import { relaunch } from "@tauri-apps/plugin-process";
-import { Child } from "@tauri-apps/plugin-shell";
 import { Button, Image } from "@nextui-org/react";
-import {SearchContext} from "@/app/search";
+import { SearchContext } from "@/app/search";
 
 type State = {
   isNewCmdOpen: boolean;
-  isEditCmdOpen: boolean;
-  isExecuting: boolean;
   cmdModels: CmdModel[];
   editCmdModel: CmdModel | null;
-  adbOutput: string;
 };
 
 const InitialState: State = {
   isNewCmdOpen: false,
-  isEditCmdOpen: false,
-  isExecuting: false,
   cmdModels: [],
   editCmdModel: null,
-  adbOutput: "",
 };
 
 type Action =
   | {
       type: "setNewCmdOpen";
-      payload: boolean;
-    }
-  | {
-      type: "setIsExecuting";
       payload: boolean;
     }
   | {
@@ -50,10 +32,6 @@ type Action =
   | {
       type: "setEditCmdModel";
       payload: CmdModel | null;
-    }
-  | {
-      type: "setAdbOutput";
-      payload: string;
     };
 
 function reducer(state: State, action: Action): State {
@@ -63,11 +41,6 @@ function reducer(state: State, action: Action): State {
         ...state,
         isNewCmdOpen: action.payload,
       };
-    case "setIsExecuting":
-      return {
-        ...state,
-        isExecuting: action.payload,
-      };
     case "setCmdModels":
       return {
         ...state,
@@ -76,19 +49,9 @@ function reducer(state: State, action: Action): State {
     case "setEditCmdModel":
       return {
         ...state,
-        adbOutput: "",
         editCmdModel: action.payload,
-        isEditCmdOpen: !!action.payload,
       };
-    case "setAdbOutput":
-      let adbOutput = state.adbOutput + "\n" + action.payload;
-      if(adbOutput.length > 1000) {
-        adbOutput = adbOutput.slice(0, 1000);
-      }
-      return {
-        ...state,
-        adbOutput,
-      };
+
     default:
       return state;
   }
@@ -111,9 +74,7 @@ function App() {
 
   useEffect(() => {
     handleSearch();
-  }, [state.isNewCmdOpen, state.isEditCmdOpen]);
-
-  const pid = useRef<Child | null>(null);
+  }, [state.isNewCmdOpen, state.editCmdModel]);
 
   const handleNewSubmit = async (cmd: CmdModel) => {
     await db.insert(cmd);
@@ -130,30 +91,8 @@ function App() {
     dispatch({ type: "setEditCmdModel", payload: null });
   };
 
-  const handleExecute = async (device: string, cmd: CmdModel) => {
-    await ADBShell.kill(pid.current);
-
-    dispatch({ type: "setIsExecuting", payload: true });
-
-    pid.current = await ADBShell.execute(
-      device,
-      cmd,
-      (data) => {
-        dispatch({ type: "setAdbOutput", payload: data });
-      },
-      (data) => {
-        dispatch({ type: "setAdbOutput", payload: data });
-      },
-      () => {
-        dispatch({ type: "setIsExecuting", payload: false });
-      },
-    );
-  };
-
-  const handleEditClose = async () => {
+  const handleEditClose = () => {
     dispatch({ type: "setEditCmdModel", payload: null });
-    await ADBShell.kill(pid.current);
-    dispatch({ type: "setIsExecuting", payload: false });
   };
 
   const searchText = useContext(SearchContext);
@@ -198,23 +137,17 @@ function App() {
 
       {state.editCmdModel && (
         <EditCmdDialog
-          open={state.isEditCmdOpen}
-          output={state.adbOutput}
           cmd={state.editCmdModel}
-          isExecuting={state.isExecuting}
-          onClearRequest={() => {
-            dispatch({ type: "setAdbOutput", payload: "" });
-          }}
           onSaveRequest={handleSave}
           onDeleteRequest={handleDelete}
           onCloseRequest={handleEditClose}
-          onExecuteRequest={handleExecute}
         />
       )}
 
       <Button
         radius="full"
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           dispatch({ type: "setNewCmdOpen", payload: true });
         }}
         variant="flat"
