@@ -81,9 +81,13 @@ function reducer(state: State, action: Action): State {
         isEditCmdOpen: !!action.payload,
       };
     case "setAdbOutput":
+      let adbOutput = state.adbOutput + "\n" + action.payload;
+      if(adbOutput.length > 1000) {
+        adbOutput = adbOutput.slice(0, 1000);
+      }
       return {
         ...state,
-        adbOutput: action.payload,
+        adbOutput,
       };
     default:
       return state;
