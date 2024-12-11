@@ -146,7 +146,7 @@ function EditCmdDialog({
   }, []);
 
   return (
-    <Modal isOpen={open} onClose={onCloseRequest} size="sm" isDismissable>
+    <Modal isOpen={open} onClose={onCloseRequest} size="sm" isDismissable className="bg-color-background">
       <ModalContent>
         <ModalHeader>
           <h2>Edit Command</h2>
