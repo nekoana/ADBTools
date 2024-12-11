@@ -21,6 +21,7 @@
     "sql:allow-execute",
     "sql:allow-select",
     "sql:allow-close",
+    "updater:default",
     "updater:allow-check",
     "updater:allow-download-and-install",
     {
@@ -34,9 +35,8 @@
         }
       ]
     },
-
     {
-      "identifier":  "shell:allow-spawn",
+      "identifier": "shell:allow-spawn",
       "allow": [
         {
           "name": "adb",
@@ -46,7 +46,6 @@
         }
       ]
     },
-
     {
       "identifier": "shell:allow-execute",
       "allow": [
@@ -58,7 +57,6 @@
         }
       ]
     },
-
     {
       "identifier": "shell:allow-kill",
       "allow": [
@@ -70,7 +68,6 @@
         }
       ]
     },
-
     {
       "identifier": "shell:allow-stdin-write",
       "allow": [
