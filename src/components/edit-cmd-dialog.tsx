@@ -66,7 +66,6 @@ function deepEqual(a: any, b: any): boolean {
 }
 
 function reducer(state: State, action: Action): State {
-  console.log(action);
   switch (action.type) {
     case "setNewCmd": {
       const newCmd = action.payload;
@@ -112,29 +111,9 @@ function EditCmdDialog({
   onSaveRequest: (newModel: CmdModel) => void;
   onDeleteRequest: (cmd: CmdModel) => void;
 }) {
-  if (!cmd) {
-    return <></>;
-  }
-
-  const pid = useRef<Child | null>(null);
-
-  useEffect(() => {
-    return () => {
-      ADBShell.kill(pid.current);
-    };
-  }, [cmd]);
-
   const formRef = useRef<HTMLFormElement>(null);
 
-  const [state, dispatch] = useReducer(reducer, {
-    oldCmd: cmd,
-    newCmd: cmd,
-    changed: false,
-    devices: [],
-    selected: "",
-    output: "",
-    executing: false,
-  });
+  const pid = useRef<Child | null>(null);
 
   const handleChanged = (cmd: CmdModel) => {
     dispatch({ type: "setNewCmd", payload: cmd });
@@ -156,17 +135,17 @@ function EditCmdDialog({
     await ADBShell.kill(pid.current);
     dispatch({ type: "setExecuting", payload: true });
     pid.current = await ADBShell.execute(
-      state.selected,
-      state.newCmd,
-      (data) => {
-        dispatch({ type: "setAdbOutput", payload: data });
-      },
-      (data) => {
-        dispatch({ type: "setAdbOutput", payload: data });
-      },
-      () => {
-        dispatch({ type: "setExecuting", payload: false });
-      },
+        state.selected,
+        state.newCmd,
+        (data) => {
+          dispatch({ type: "setAdbOutput", payload: data });
+        },
+        (data) => {
+          dispatch({ type: "setAdbOutput", payload: data });
+        },
+        () => {
+          dispatch({ type: "setExecuting", payload: false });
+        },
     );
   };
 
@@ -179,9 +158,39 @@ function EditCmdDialog({
   };
 
   useEffect(() => {
+    return () => {
+      ADBShell.kill(pid.current);
+    };
+  }, [cmd]);
+
+  useEffect(() => {
     fetchDevices();
   }, []);
 
+
+  const [state, dispatch] = useReducer(reducer, {
+    oldCmd: cmd ?? {
+        title: "",
+        description: "",
+        command: "",
+        keywords: "",
+    },
+    newCmd: cmd ?? {
+      title: "",
+      description: "",
+      command: "",
+      keywords: "",
+    },
+    changed: false,
+    devices: [],
+    selected: "",
+    output: "",
+    executing: false,
+  });
+
+  if (!cmd) {
+    return <></>;
+  }
   return (
     <Modal
       isOpen={true}
