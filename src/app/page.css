@@ -130,8 +130,3 @@ body {
   top: var(--header-height);
   @apply w-full overflow-auto;
 }
-
-md-outlined-select,
-md-filled-select {
-  min-width: unset;
-}
