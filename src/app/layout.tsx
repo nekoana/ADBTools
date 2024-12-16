@@ -42,13 +42,13 @@ function RootLayout({
       <body className={inter.className}>
         <div
           data-tauri-drag-region
-          className="fixed titlebar flex flex-row max-w-full place-items-center top-0 left-0 right-0 z-50"
+          className="fixed titlebar flex flex-row max-w-full place-items-center top-0 left-0 right-0"
         >
           <Chip
-            className="m-1 absolute bg-color-background shadow cursor-default"
+            className="m-2 absolute bg-color-background shadow cursor-default"
             radius="full"
           >
-            <span className="text-sm">V: {version}</span>
+            <span className="text-sm">Version: {version}</span>
           </Chip>
 
           <Input
@@ -60,7 +60,7 @@ function RootLayout({
               inputWrapper:
                 "border-b-outline hover:border-b-primary focus:border-b-primary",
             }}
-            className="relative w-auto  mx-auto transition-all"
+            className="relative w-auto h-full mx-auto transition-all mb-0"
             onValueChange={setSearchText}
             onClear={() => setSearchText("")}
             startContent={
