@@ -152,7 +152,7 @@ function App() {
         }}
         variant="flat"
         isIconOnly
-        className="bg-color-on-primary fixed right-2 bottom-2 w-14 h-14 p-4 shadow hover:shadow-inner"
+        className="bg-color-on-primary fixed right-2 bottom-2 w-14 h-14 p-4 shadow hover:shadow-inner z-50"
       >
         <Image src="add.svg" />
       </Button>
