@@ -3,8 +3,10 @@ import React from "react";
 
 function SearchInput({
   setSearchText,
+  className,
 }: {
   setSearchText: (text: string) => void;
+  className?: string;
 }) {
   return (
     <Input
@@ -16,7 +18,7 @@ function SearchInput({
         inputWrapper:
           "border-b-outline hover:border-b-primary focus:border-b-primary",
       }}
-      className="transition-all"
+      className={className}
       onValueChange={setSearchText}
       onClear={() => setSearchText("")}
       startContent={

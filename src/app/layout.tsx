@@ -27,20 +27,20 @@ function RootLayout({
 
   return (
     <html lang="en">
-    <body className={inter.className}>
-    <div
-        data-tauri-drag-region
-        className="titlebar flex flex-row max-w-full place-items-center top-0 left-0 right-0"
-    >
-      <div className="m-1 z-50">
-        <NavigationBar/>
-      </div>
-      <div className="ml-auto right-0 z-50">
-        <WindowControl onClose={handleClose} onMinimize={handleMinimize}/>
-      </div>
-    </div>
-    <div className="contentbody">{children}</div>
-    </body>
+      <body className={inter.className}>
+        <div
+          data-tauri-drag-region
+          className="titlebar flex flex-row max-w-full place-items-center top-0 left-0 right-0"
+        >
+          <div className="m-1 z-50">
+            <NavigationBar />
+          </div>
+          <div className="ml-auto right-0 z-50">
+            <WindowControl onClose={handleClose} onMinimize={handleMinimize} />
+          </div>
+        </div>
+        <div className="contentbody">{children}</div>
+      </body>
     </html>
   );
 }
