@@ -105,28 +105,15 @@ body {
 }
 
 .titlebar {
+  position: absolute;
   height: var(--header-height);
   background: var(--md-sys-color-surface);
   user-select: none;
 }
 
-.titlebar-button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 32px;
-  height: 32px;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.titlebar-button:hover {
-  background: var(--md-sys-color-surface-container);
-}
-
 .contentbody {
-  height: var(--body-height);
-  position: fixed;
+  position: absolute;
   top: var(--header-height);
+  height: var(--body-height);
   @apply w-full overflow-auto;
 }
