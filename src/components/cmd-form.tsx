@@ -1,4 +1,4 @@
-import CmdModel from "@/database/Database";
+import { Cmd } from "@/database/AdbDatabase";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Form, Input } from "@nextui-org/react";
 
@@ -9,13 +9,13 @@ export function CmdForm({
   children,
   ref,
 }: {
-  onSubmit: (cmd: CmdModel) => void;
-  onChanged?: (cmd: CmdModel) => void;
-  defaultCmd?: CmdModel;
+  onSubmit: (cmd: Cmd) => void;
+  onChanged?: (cmd: Cmd) => void;
+  defaultCmd?: Cmd;
   children?: React.ReactNode;
   ref?: React.Ref<HTMLFormElement>;
 }) {
-  const [cmd, setCmd] = useState<CmdModel>(
+  const [cmd, setCmd] = useState<Cmd>(
     defaultCmd ?? {
       title: "",
       description: "",

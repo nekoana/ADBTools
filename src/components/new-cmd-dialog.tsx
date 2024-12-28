@@ -1,5 +1,5 @@
 import { CmdForm } from "./cmd-form";
-import CmdModel from "@/database/Database";
+import { Cmd } from "@/database/AdbDatabase";
 import { useRef } from "react";
 import { Button } from "@nextui-org/react";
 
@@ -18,7 +18,7 @@ function NewCmdDialog({
 }: {
   open: boolean;
   onClose: () => void;
-  onSubmit: (cmd: CmdModel) => void;
+  onSubmit: (cmd: Cmd) => void;
 }) {
   const formRef = useRef<HTMLFormElement>(null);
 

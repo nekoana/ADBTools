@@ -1,9 +1,7 @@
 import { Child, Command, TerminatedPayload } from "@tauri-apps/plugin-shell";
-import CmdModel from "@/database/Database";
+import { Cmd } from "@/database/AdbDatabase";
 
 class ADBShell {
-  private constructor() {}
-
   static async devices() {
     const cmd = Command.create("adb", ["devices"]);
 
@@ -21,14 +19,14 @@ class ADBShell {
 
   static async execute(
     device: string,
-    cmdModel: CmdModel,
+    cmd: Cmd,
     onData: (arg: string) => void,
     onError: (arg: string) => void,
     onClose: (arg: TerminatedPayload) => void,
   ) {
     const args = ["-s", device];
 
-    args.push(...cmdModel.command.split(" "));
+    args.push(...cmd.command.split(" "));
 
     console.log("adb shell args:", args);
 

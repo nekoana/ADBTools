@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useRef } from "react";
 import DeviceList from "./device-list";
 import ConsoleArea from "./console-area";
-import CmdModel from "@/database/Database";
+import { Cmd } from "@/database/AdbDatabase";
 import ADBShell from "@/shell/ADBShell";
 import { CmdForm } from "@/components/cmd-form";
 import {
@@ -16,8 +16,8 @@ import {
 import { Child } from "@tauri-apps/plugin-shell";
 
 type State = {
-  oldCmd: CmdModel;
-  newCmd: CmdModel;
+  oldCmd: Cmd;
+  newCmd: Cmd;
   changed: boolean;
   devices: string[];
   selected: string;
@@ -28,7 +28,7 @@ type State = {
 type Action =
   | {
       type: "setNewCmd";
-      payload: CmdModel;
+      payload: Cmd;
     }
   | {
       type: "setDevices";
@@ -106,16 +106,16 @@ function EditCmdDialog({
   onSaveRequest,
   onDeleteRequest,
 }: {
-  cmd: CmdModel | null;
+  cmd: Cmd | null;
   onCloseRequest: () => void;
-  onSaveRequest: (newModel: CmdModel) => void;
-  onDeleteRequest: (cmd: CmdModel) => void;
+  onSaveRequest: (newModel: Cmd) => void;
+  onDeleteRequest: (cmd: Cmd) => void;
 }) {
   const formRef = useRef<HTMLFormElement>(null);
 
   const pid = useRef<Child | null>(null);
 
-  const handleChanged = (cmd: CmdModel) => {
+  const handleChanged = (cmd: Cmd) => {
     dispatch({ type: "setNewCmd", payload: cmd });
   };
 
@@ -135,17 +135,17 @@ function EditCmdDialog({
     await ADBShell.kill(pid.current);
     dispatch({ type: "setExecuting", payload: true });
     pid.current = await ADBShell.execute(
-        state.selected,
-        state.newCmd,
-        (data) => {
-          dispatch({ type: "setAdbOutput", payload: data });
-        },
-        (data) => {
-          dispatch({ type: "setAdbOutput", payload: data });
-        },
-        () => {
-          dispatch({ type: "setExecuting", payload: false });
-        },
+      state.selected,
+      state.newCmd,
+      (data) => {
+        dispatch({ type: "setAdbOutput", payload: data });
+      },
+      (data) => {
+        dispatch({ type: "setAdbOutput", payload: data });
+      },
+      () => {
+        dispatch({ type: "setExecuting", payload: false });
+      },
     );
   };
 
@@ -167,13 +167,12 @@ function EditCmdDialog({
     fetchDevices();
   }, []);
 
-
   const [state, dispatch] = useReducer(reducer, {
     oldCmd: cmd ?? {
-        title: "",
-        description: "",
-        command: "",
-        keywords: "",
+      title: "",
+      description: "",
+      command: "",
+      keywords: "",
     },
     newCmd: cmd ?? {
       title: "",

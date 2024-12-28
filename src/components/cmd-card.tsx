@@ -1,11 +1,11 @@
-import CmdModel from "@/database/Database";
+import { Cmd } from "@/database/AdbDatabase";
 import { Card, CardHeader, CardBody } from "@nextui-org/react";
 function CmdCard({
   onClick,
   cmdModel,
 }: {
-  onClick: (cmdModel: CmdModel) => void;
-  cmdModel: CmdModel;
+  onClick: (cmdModel: Cmd) => void;
+  cmdModel: Cmd;
 }) {
   return (
     <Card

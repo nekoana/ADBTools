@@ -83,8 +83,8 @@
   --md-sys-color-on-error-container: #410002;
   --md-sys-color-focus: #f7b337;
 
-  --header-height: 36px;
-  --body-height: calc(100vh - 36px);
+  --header-height: 42px;
+  --body-height: calc(100vh - 42px);
 }
 
 /* 隐藏滚动条 */
@@ -114,8 +114,8 @@ body {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   user-select: none;
   -webkit-user-select: none;
 }

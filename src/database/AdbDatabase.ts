@@ -1,6 +1,6 @@
 import Database from "@tauri-apps/plugin-sql";
 
-type CmdModel = {
+export type Cmd = {
   id?: number;
   title: string;
   description: string;
@@ -8,55 +8,49 @@ type CmdModel = {
   keywords: string;
 };
 
-export default CmdModel;
+class AdbDatabase {
+  private db: Database;
 
-class AdbToolsDatabase {
-  private db: Database | null = null;
+  constructor(db: Database) {
+    this.db = db;
+  }
 
-  constructor() {}
-
-  async prepare() {
-    if (this.db) return;
-    this.db = await Database.load("sqlite:adbtools.db");
-    await this.db.execute(
+  static async prepare() {
+    const db = await Database.load("sqlite:adbtools.db");
+    await db.execute(
       "CREATE TABLE IF NOT EXISTS cmd (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, command TEXT, keywords TEXT)",
     );
+    return new AdbDatabase(db);
   }
 
   async search(keywords?: string) {
-    await this.prepare();
-
     let sql = "SELECT * FROM cmd";
     const params = keywords ? [`%${keywords}%`] : [];
     if (keywords) {
       sql += " WHERE keywords LIKE ?";
     }
 
-    return this.db?.select<Array<CmdModel>>(sql, params);
+    return this.db?.select<Array<Cmd>>(sql, params);
   }
 
-  async update(cmd: CmdModel) {
-    await this.prepare();
+  async update(cmd: Cmd) {
     await this.db?.execute(
       "UPDATE cmd SET title = ?, description = ?, command = ?, keywords = ? WHERE id = ?",
       [cmd.title, cmd.description, cmd.command, cmd.keywords, cmd.id],
     );
   }
 
-  async insert(cmd: CmdModel) {
-    await this.prepare();
+  async insert(cmd: Cmd) {
     await this.db?.execute(
       "INSERT INTO cmd(title, description, command, keywords) VALUES (?,?,?,?)",
       [cmd.title, cmd.description, cmd.command, cmd.keywords],
     );
   }
 
-  async delete(cmd: CmdModel) {
-    await this.prepare();
+  async delete(cmd: Cmd) {
     await this.db?.execute("DELETE FROM cmd WHERE id = ?", [cmd.id]);
   }
 }
+const DB = await AdbDatabase.prepare();
 
-const db = new AdbToolsDatabase();
-
-export { db };
+export { DB };
