@@ -13,12 +13,7 @@ function DeviceList({
   };
 
   return (
-    <Select
-      isRequired
-      placeholder="Select a device"
-      defaultSelectedKeys={[devices[0]]}
-      onChange={handleSelected}
-    >
+    <Select isRequired placeholder="Select a device" onChange={handleSelected}>
       {devices.map((device) => (
         <SelectItem key={device} className="overflow-hidden">
           {device}

@@ -1,30 +1,34 @@
-import { useEffect, useState, useCallback } from "react";
-import { Cmd, DB } from "@/database/AdbDatabase";
+import { useEffect, useState, useCallback, useMemo } from "react";
+import CmdRepository from "@/repository/CmdRepository";
+import { DB } from "@/database/AdbDatabase";
+import { Cmd } from "@/model/Cmd";
 
 function useCmds() {
+  const repository = useMemo(() => new CmdRepository(DB), []);
+
   const [cmds, setCmds] = useState<Cmd[]>(new Array<Cmd>());
 
   const search = useCallback((keywords: string) => {
-    DB.search(keywords).then((cmds) => setCmds(cmds));
+    repository.search(keywords).then((cmds) => setCmds(cmds));
   }, []);
 
   const update = useCallback(
     (cmd: Cmd) => {
-      DB.update(cmd).then(() => search(""));
+      repository.update(cmd).then(() => search(""));
     },
     [search],
   );
 
   const insert = useCallback(
     (cmd: Cmd) => {
-      DB.insert(cmd).then(() => search(""));
+      repository.insert(cmd).then(() => search(""));
     },
     [search],
   );
 
   const remove = useCallback(
     (cmd: Cmd) => {
-      DB.delete(cmd).then(() => search(""));
+      repository.delete(cmd).then(() => search(""));
     },
     [search],
   );

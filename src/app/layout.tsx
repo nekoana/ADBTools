@@ -7,8 +7,12 @@ import React from "react";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 import WindowControl from "@/components/window-control";
 import NavigationBar from "@/components/navigation-bar";
+import localFont from "next/font/local";
 
-const inter = Inter({ subsets: ["latin"] });
+const jetBrains = localFont({
+  src: "../fonts/JetBrainsMono-Bold.woff2",
+  display: "swap",
+});
 
 function RootLayout({
   children,
@@ -27,7 +31,7 @@ function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={jetBrains.className}>
         <div
           data-tauri-drag-region
           className="titlebar flex flex-row max-w-full place-items-center top-0 left-0 right-0"

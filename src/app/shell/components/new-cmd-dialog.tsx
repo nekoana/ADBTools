@@ -1,7 +1,6 @@
 import { CmdForm } from "./cmd-form";
-import { Cmd } from "@/database/AdbDatabase";
 import { useRef } from "react";
-import { Button } from "@nextui-org/react";
+import { Button, Image } from "@nextui-org/react";
 
 import {
   Modal,
@@ -10,6 +9,8 @@ import {
   ModalBody,
   ModalFooter,
 } from "@nextui-org/react";
+
+import { Cmd } from "@/model/Cmd";
 
 function NewCmdDialog({
   open,
@@ -27,7 +28,15 @@ function NewCmdDialog({
   };
 
   return (
-    <Modal isOpen={open} onClose={onClose} className="bg-color-background">
+    <Modal
+      backdrop="blur"
+      isOpen={open}
+      onClose={onClose}
+      className="bg-color-background"
+      classNames={{
+        closeButton: "bg-transparent hover:shadow-inner",
+      }}
+    >
       <ModalContent>
         <ModalHeader>
           <h2>New Command</h2>
@@ -37,12 +46,12 @@ function NewCmdDialog({
         </ModalBody>
         <ModalFooter>
           <Button
+            isIconOnly
             radius="full"
-            variant="flat"
-            className="bg-color-on-primary hover:shadow-inner transition-all"
-            onClick={handleSubmit}
+            className="bg-transparent hover:shadow-inner"
+            onClick={() => handleSubmit()}
           >
-            Ok
+            <Image src="save.svg" className="p-2" />
           </Button>
         </ModalFooter>
       </ModalContent>

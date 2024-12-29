@@ -1,13 +1,14 @@
 "use client";
 
 import React, { Fragment, useEffect } from "react";
-import NewCmdDialog from "../../components/new-cmd-dialog";
-import EditCmdDialog from "../../components/edit-cmd-dialog";
-import CmdCard from "../../components/cmd-card";
-import { Cmd } from "@/database/AdbDatabase";
+import NewCmdDialog from "./components/new-cmd-dialog";
+import EditCmdDialog from "./components/edit-cmd-dialog";
+import CmdCard from "./components/cmd-card";
 import { Button, Image } from "@nextui-org/react";
 import useCmds from "@/hooks/useCmds";
 import useSearchText from "@/hooks/useSearchText";
+
+import { Cmd } from "@/model/Cmd";
 
 function Shell() {
   const { cmds, search, update, insert, remove } = useCmds();
@@ -63,8 +64,7 @@ function Shell() {
 
       <Button
         radius="full"
-        onClick={(e) => {
-          e.stopPropagation();
+        onPress={() => {
           setIsNewCmdOpen(true);
         }}
         variant="flat"
