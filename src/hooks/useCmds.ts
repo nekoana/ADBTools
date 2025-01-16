@@ -1,10 +1,9 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import CmdRepository from "@/repository/CmdRepository";
-import { DB } from "@/database/AdbDatabase";
 import { Cmd } from "@/model/Cmd";
 
 function useCmds() {
-  const repository = useMemo(() => new CmdRepository(DB), []);
+  const repository = useMemo(() => new CmdRepository(), []);
 
   const [cmds, setCmds] = useState<Cmd[]>(new Array<Cmd>());
 
