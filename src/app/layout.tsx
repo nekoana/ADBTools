@@ -1,24 +1,24 @@
 "use strict";
 "use client";
 
+import "../styles/globals.css";
 import { Inter } from "next/font/google";
 import React from "react";
 import { getCurrentWindow } from "@tauri-apps/api/window";
-import { Button, Input } from "@nextui-org/react";
-import { Image } from "@nextui-org/react";
-import { SearchContext } from "./search";
-import { getVersion } from "@tauri-apps/api/app";
-import { Chip } from "@nextui-org/react";
+import WindowControl from "@/components/window-control";
+import NavigationBar from "@/components/navigation-bar";
+import localFont from "next/font/local";
 
-const inter = Inter({ subsets: ["latin"] });
+const jetBrains = localFont({
+  src: "../fonts/JetBrainsMono-Bold.woff2",
+  display: "swap",
+});
 
 function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [searchText, setSearchText] = React.useState("");
-
   const handleClose = async () => {
     const window = getCurrentWindow();
     await window.close();
@@ -29,70 +29,21 @@ function RootLayout({
     await window.minimize();
   };
 
-  const [version, setVersion] = React.useState<string | null>(null);
-
-  React.useEffect(() => {
-    getVersion().then((v) => {
-      setVersion(v);
-    });
-  }, []);
-
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={jetBrains.className}>
         <div
           data-tauri-drag-region
-          className="fixed titlebar flex flex-row max-w-full place-items-center top-0 left-0 right-0 z-50"
+          className="titlebar flex flex-row max-w-full place-items-center top-0 left-0 right-0"
         >
-          <Chip
-            className="m-1 absolute bg-color-background shadow cursor-default"
-            radius="full"
-          >
-            <span className="text-sm">V: {version}</span>
-          </Chip>
-
-          <Input
-            variant="underlined"
-            isClearable
-            placeholder="Search"
-            classNames={{
-              innerWrapper: "pb-0",
-              inputWrapper:
-                "border-b-outline hover:border-b-primary focus:border-b-primary",
-            }}
-            className="relative w-auto  mx-auto transition-all"
-            onValueChange={setSearchText}
-            onClear={() => setSearchText("")}
-            startContent={
-              <Image src="search.svg" width={20} height={20} alt="search" />
-            }
-          />
-
-          <div
-            className="ml-auto absolute right-0 flex flex-row"
-            id="control-area"
-          >
-            <Button
-              radius="full"
-              isIconOnly
-              className="bg-transparent hover:shadow-inner"
-              onClick={handleMinimize}
-            >
-              <Image width={20} height={20} src="mini.svg" alt="minimize" />
-            </Button>
-            <Button
-              radius="full"
-              className="bg-transparent hover:shadow-inner"
-              isIconOnly
-              onClick={handleClose}
-            >
-              <Image width={20} height={20} src="close.svg" alt="close" />
-            </Button>
+          <div className="m-1 z-50">
+            <NavigationBar />
+          </div>
+          <div className="ml-auto right-0 z-50">
+            <WindowControl onClose={handleClose} onMinimize={handleMinimize} />
           </div>
         </div>
-        <SearchContext.Provider value={searchText}>
-          <div className="contentbody">{children}</div>
-        </SearchContext.Provider>
+        <div className="contentbody">{children}</div>
       </body>
     </html>
   );

@@ -1,17 +1,19 @@
-import CmdModel from "@/database/Database";
 import { Card, CardHeader, CardBody } from "@nextui-org/react";
+
+import { Cmd } from "@/model/Cmd";
 function CmdCard({
   onClick,
   cmdModel,
 }: {
-  onClick: (cmdModel: CmdModel) => void;
-  cmdModel: CmdModel;
+  onClick: (cmdModel: Cmd) => void;
+  cmdModel: Cmd;
 }) {
   return (
     <Card
-      className="py-4 shadow "
+      className="py-4 shadow"
       isPressable={true}
-      onClick={() => onClick(cmdModel)}
+      isHoverable={true}
+      onPress={() => onClick(cmdModel)}
     >
       <CardHeader className="pb-0 flex-col items-center">
         <p className="text-tiny truncate uppercase font-bold w-full text-center">
