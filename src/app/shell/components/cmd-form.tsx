@@ -1,6 +1,7 @@
-import CmdModel from "@/database/Database";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Form, Input } from "@nextui-org/react";
+
+import { Cmd } from "@/model/Cmd";
 
 export function CmdForm({
   onSubmit,
@@ -9,13 +10,13 @@ export function CmdForm({
   children,
   ref,
 }: {
-  onSubmit: (cmd: CmdModel) => void;
-  onChanged?: (cmd: CmdModel) => void;
-  defaultCmd?: CmdModel;
+  onSubmit: (cmd: Cmd) => void;
+  onChanged?: (cmd: Cmd) => void;
+  defaultCmd?: Cmd;
   children?: React.ReactNode;
   ref?: React.Ref<HTMLFormElement>;
 }) {
-  const [cmd, setCmd] = useState<CmdModel>(
+  const [cmd, setCmd] = useState<Cmd>(
     defaultCmd ?? {
       title: "",
       description: "",
@@ -50,7 +51,7 @@ export function CmdForm({
 
   return (
     <Form onSubmit={handleSubmit} method="dialog" ref={ref}>
-      <div className="grid grid-cols-[1fr_3fr] gap-4">
+      <div className="grid grid-cols-[1fr_3fr] gap-4 items-center">
         <p className="text-md w-24">Title:</p>
         <Input
           value={cmd.title}
@@ -60,7 +61,7 @@ export function CmdForm({
           required={true}
           onChange={handleCmdChange}
         />
-        <p className="text-md w-24">Description:</p>
+        <p className="text-md w-24">Describe:</p>
         <Input
           id="description"
           value={cmd.description}
