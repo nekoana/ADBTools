@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "ADBTools",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "identifier": "com.kouqurong.adbtools",
   "build": {
     "beforeBuildCommand": "npm run build",

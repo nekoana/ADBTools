@@ -1,6 +1,6 @@
 [package]
 name = "adbtools"
-version = "0.0.0"
+version = "2.1.0"
 description = "adb command tools"
 authors = ["kouqurong@outlook.com"]
 edition = "2021"

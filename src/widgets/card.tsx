@@ -17,7 +17,7 @@ function Card({
       className="py-4 shadow"
       isPressable={true}
       isHoverable={true}
-      onClick={() => onClick(cmdModel)}
+      onPress={() => onClick(cmdModel)}
     >
       <CardHeader className="pb-0 flex-col items-center">
         <p className="text-tiny truncate uppercase font-bold w-full text-center">
