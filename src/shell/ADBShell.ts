@@ -5,8 +5,10 @@ class ADBShell {
   static async devices() {
     const cmd = Command.create("adb", ["devices"]);
     const output = await cmd.execute();
-
+    //windows use \r\n as line break
+    //macos and linux use \n as line break
     return output.stdout
+      .replace(/\r/g, "")
       .split("\n")
       .slice(1)
       .filter((line) => line.length > 0)
