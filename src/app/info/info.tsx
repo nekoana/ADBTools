@@ -80,6 +80,10 @@ export default function Info() {
     return <></>;
   }
 
+  if (!infos || Object.keys(infos).length === 0) {
+    return <></>;
+  }
+
   return (
     <>
       <div className="flex flex-wrap gap-4">
