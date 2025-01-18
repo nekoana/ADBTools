@@ -76,6 +76,14 @@ export default function Info() {
     fetchInfos();
   }, [device]);
 
+  if (!device || device.length === 0) {
+    return <></>;
+  }
+
+  if (!infos || Object.keys(infos).length === 0) {
+    return <></>;
+  }
+
   return (
     <>
       <div className="flex flex-wrap gap-4">
